@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const navItems = [
   { href: "#artisan", label: "L'Artisan" },
+  { href: "#portrait", label: "Portrait" },
   { href: "#creations", label: "Créations" },
   { href: "#maisons", label: "Maisons" },
   { href: "#contact", label: "Contact" },
@@ -12,6 +13,7 @@ const navItems = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -27,8 +29,13 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5 md:px-10">
-        <Link href="#" className="font-cormorant text-3xl font-light tracking-wide text-cream">
-          Thomas Bouilhol
+        <Link href="#" className="flex items-center gap-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/40">
+            <span className="font-cormorant text-sm italic text-gold">TB</span>
+          </span>
+          <span className="font-cormorant text-2xl font-light tracking-wide text-cream">
+            Thomas Bouilhol
+          </span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
@@ -41,7 +48,40 @@ export function Navbar() {
             </Link>
           ))}
         </div>
+        <button
+          type="button"
+          className="flex flex-col gap-[4px] md:hidden"
+          aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((current) => !current)}
+        >
+          {mobileOpen ? (
+            <span className="font-jost text-xs uppercase tracking-[0.2em] text-cream/70">✕</span>
+          ) : (
+            <>
+              <span className="block h-px w-5 bg-cream/60" />
+              <span className="block h-px w-5 bg-cream/60" />
+              <span className="block h-px w-5 bg-cream/60" />
+            </>
+          )}
+        </button>
       </nav>
+      {mobileOpen ? (
+        <div className="border-t border-gold/10 bg-[#0C0A08]/95 px-6 py-6 backdrop-blur md:hidden">
+          <div className="flex flex-col gap-5">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="py-2 font-jost text-sm uppercase tracking-[0.2em] text-cream/60 transition hover:text-gold"
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }
