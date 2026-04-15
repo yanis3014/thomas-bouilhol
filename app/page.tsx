@@ -1,300 +1,588 @@
+ "use client";
+
 import Image from "next/image";
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { RevealWrapper } from "@/components/RevealWrapper";
 import { SectionContainer } from "@/components/SectionContainer";
 
 const gallery = [
   {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
-    alt: "Composition florale luxueuse dans des tons crème",
+    src: "/conception/lieu-culte.png",
+    alt: "Composition florale luxueuse lieu de culte",
     height: "h-[400px]",
   },
   {
-    src: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=800&q=85",
-    alt: "Bouquet sculptural en fleurs blanches",
+    src: "/conception/cathedrale.png",
+    alt: "Bouquet cathedrale",
     height: "h-[300px]",
   },
   {
-    src: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=800&q=85",
-    alt: "Atelier floral haut de gamme dans une lumière dorée",
+    src: "/conception/mariage.png",
+    alt: "composition florale mariage ",
     height: "h-[250px]",
   },
   {
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=85",
-    alt: "Décoration florale d'exception pour réception privée",
+    src: "/conception/mariage-bouquet.png",
+    alt: "Décoration florale d'exception pour réception privée mariage ",
     height: "h-[450px]",
   },
   {
-    src: "https://images.unsplash.com/photo-1490750967868-88df5691cc8b?w=800&q=85",
+    src: "/conception/jardin.png",
     alt: "Détails de fleurs délicates à l'élégance couture",
     height: "h-[380px]",
   },
   {
-    src: "https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=800&q=85",
+    src: "/conception/bouquet-rond.png",
     alt: "Bouquet raffiné au style artistique intemporel",
     height: "h-[270px]",
   },
 ];
 
-function CheckerDivider({ invert = false }: { invert?: boolean }) {
-  return (
-    <div
-      className="h-6 w-full"
-      style={{
-        backgroundImage: `repeating-conic-gradient(${
-          invert ? "rgba(12,10,8,0.18)" : "rgba(201,169,110,0.18)"
-        } 0% 25%, transparent 0% 50%)`,
-        backgroundSize: "14px 14px",
-      }}
-    />
-  );
-}
-
 export default function Home() {
+  const easeOutExpo = [0.22, 1, 0.36, 1] as const;
+  const distinctionsRef = useRef<HTMLElement | null>(null);
+  const distinctionsDecorRef = useRef<HTMLDivElement | null>(null);
+  const citationRef = useRef<HTMLElement | null>(null);
+  const portraitRef = useRef<HTMLElement | null>(null);
+  const portraitDecorRef = useRef<HTMLDivElement | null>(null);
+  const trustRef = useRef<HTMLElement | null>(null);
+  const creationsRef = useRef<HTMLElement | null>(null);
+  const maisonsRef = useRef<HTMLElement | null>(null);
+  const contactRef = useRef<HTMLElement | null>(null);
+  const contactDecorRef = useRef<HTMLDivElement | null>(null);
+
+  const distinctionsInView = useInView(distinctionsRef, { once: true, margin: "-100px" });
+  const distinctionsDecorInView = useInView(distinctionsDecorRef, { once: false, margin: "-100px" });
+  const citationInView = useInView(citationRef, { once: true, margin: "-80px" });
+  const trustInView = useInView(trustRef, { once: true });
+  const creationsInView = useInView(creationsRef, { once: true, margin: "-50px" });
+  const maisonsInView = useInView(maisonsRef, { once: true });
+  const contactInView = useInView(contactRef, { once: true });
+  const portraitInView = useInView(portraitRef, { once: true });
+  const portraitDecorInView = useInView(portraitDecorRef, { once: false, margin: "-100px" });
+  const contactDecorInView = useInView(contactDecorRef, { once: false, margin: "-100px" });
+
+  const { scrollYProgress: portraitScrollProgress } = useScroll({
+    target: portraitRef,
+    offset: ["start end", "end start"],
+  });
+  const portraitQuoteY = useTransform(portraitScrollProgress, [0, 1], [30, -30]);
+
+  const citationWords = "Là où l'esprit ne travaille pas avec la main,"
+    .split(" ")
+    .concat("il n'y a pas d'art.".split(" "));
+
   return (
-    <main className="bg-background">
+    <main className="bg-[#F5F0E8]">
       <Navbar />
 
-      <section className="relative grid min-h-[100vh] grid-cols-[45%_55%] overflow-hidden">
-        <div className="relative min-h-[100vh]">
+      <section className="relative isolate z-10 min-h-[100vh] overflow-hidden bg-[#0C0A08] md:grid md:grid-cols-[45%_55%]">
+        <motion.div
+          className="absolute inset-0 md:relative md:inset-auto md:min-h-[100vh]"
+          initial={{ clipPath: "inset(0 100% 0 0)" }}
+          animate={{ clipPath: "inset(0 0% 0 0)" }}
+          transition={{ duration: 1.4, ease: easeOutExpo, delay: 0.3 }}
+        >
           <Image
             src="/thomas-hero.jpg"
             alt="Thomas Bouilhol, Maître Fleuriste, en création florale"
             fill
             priority
-            className="object-cover object-[center_top]"
+            className="object-cover object-[center_15%] brightness-105 contrast-105 md:object-[center_top]"
           />
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 hidden md:block"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(0,0,0,0) 58%, rgba(0,0,0,0.14) 100%)",
+              background: "linear-gradient(to right, transparent 70%, rgba(12,10,8,0.6) 100%)",
             }}
           />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/70 md:hidden" />
+        </motion.div>
 
-        <div className="relative flex min-h-[100vh] items-center justify-center bg-[#0f0e0c] px-6">
-          <RevealWrapper className="text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-gold/50 shadow-[0_0_30px_rgba(201,169,110,0.12)]">
+        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-center bg-transparent px-5 pb-16 pt-10 md:relative md:inset-auto md:z-auto md:min-h-[100vh] md:bg-[#0C0A08] md:px-6 md:py-16">
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 30%, rgba(201,169,110,0.04) 0%, transparent 70%)",
+            }}
+          />
+          <RevealWrapper className="relative z-10 text-center">
+            <motion.div
+              className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-gold/70 shadow-[0_0_60px_rgba(201,169,110,0.18)] md:h-20 md:w-20"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: easeOutExpo, delay: 1 }}
+            >
               <span className="font-cormorant text-2xl italic text-gold">TB</span>
-            </div>
-            <p className="mt-7 font-jost text-xs uppercase tracking-[0.55em] text-mid">
+            </motion.div>
+            <motion.p
+              className="mt-7 font-jost text-xs uppercase tracking-[0.55em] text-mid"
+              initial={{ opacity: 0, letterSpacing: "0.8em" }}
+              animate={{ opacity: 1, letterSpacing: "0.55em" }}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 1.2 }}
+            >
               Nice · Côte d&apos;Azur · France
-            </p>
-            <h1 className="mt-8 font-cormorant text-[clamp(4rem,10vw,9rem)] font-light leading-none text-cream">
-              Thomas Bouilhol
+            </motion.p>
+            <h1 className="mt-8 font-cormorant text-[clamp(3rem,10vw,10rem)] font-light leading-none text-cream">
+              <motion.span
+                className="block"
+                initial={{ y: 80, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: easeOutExpo, delay: 1.3 }}
+              >
+                Thomas
+              </motion.span>
+              <motion.span
+                className="block"
+                initial={{ y: 80, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: easeOutExpo, delay: 1.45 }}
+              >
+                Bouilhol
+              </motion.span>
             </h1>
-            <p className="mt-5 font-cormorant text-[clamp(1.1rem,2.2vw,1.6rem)] italic text-gold/80">
+            <motion.p
+              className="mt-5 font-cormorant text-[clamp(1.1rem,2.2vw,1.6rem)] italic text-gold"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: easeOutExpo, delay: 1.6 }}
+            >
               Idéateur végétal
-            </p>
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-              <span className="border border-gold/35 px-5 py-2.5 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/65">
+            </motion.p>
+            <motion.div
+              className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4"
+              initial="hidden"
+              animate="show"
+              variants={{
+                hidden: {},
+                show: { transition: { delayChildren: 1.7, staggerChildren: 0.1 } },
+              }}
+            >
+              <motion.span
+                className="border border-gold/55 px-5 py-2.5 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/85"
+                variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.8, ease: easeOutExpo }}
+              >
                 Maître Fleuriste
-              </span>
+              </motion.span>
               <span className="hidden text-gold/45 sm:inline">·</span>
-              <span className="border border-gold/35 px-5 py-2.5 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/65">
+              <motion.span
+                className="border border-gold/55 px-5 py-2.5 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/85"
+                variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.8, ease: easeOutExpo }}
+              >
                 Maître Artisan d&apos;Art
-              </span>
-            </div>
-            <p className="mx-auto mt-6 max-w-sm font-cormorant text-lg italic text-gold/55">
+              </motion.span>
+            </motion.div>
+            <motion.p
+              className="mx-auto mt-6 max-w-sm font-cormorant text-lg italic text-gold/70"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2, ease: easeOutExpo, delay: 2 }}
+            >
               L&apos;unique fleuriste en France à réunir ces deux distinctions.
-            </p>
+            </motion.p>
           </RevealWrapper>
-          <div className="absolute bottom-8 z-10">
-            <span className="animate-sovereign-bounce block h-14 w-px bg-gradient-to-b from-gold/50 to-transparent" />
-          </div>
+          <AnimatePresence>
+            <motion.div
+              className="absolute bottom-8 z-10 hidden md:block"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: easeOutExpo, delay: 2.4 }}
+            >
+              <span className="animate-sovereign-bounce block h-14 w-px bg-gradient-to-b from-gold/50 to-transparent" />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
-      <section id="artisan" className="bg-background py-24 md:py-32">
+      <section id="artisan" ref={distinctionsRef} className="relative isolate z-10 bg-[#F5F0E8] py-24 md:py-32">
         <SectionContainer>
           <RevealWrapper className="text-center">
-            <div className="mx-auto flex max-w-xl items-center gap-5">
-              <span className="h-px flex-1 bg-gold/20" />
-              <p className="font-jost text-xs uppercase tracking-[0.55em] text-gold/50">Distinctions</p>
-              <span className="h-px flex-1 bg-gold/20" />
+            <div ref={distinctionsDecorRef} className="mx-auto flex max-w-xl items-center gap-5">
+              <motion.span
+                className="h-px flex-1 bg-[#0C0A08]/15"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={distinctionsDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.4, ease: easeOutExpo }}
+              />
+              <motion.p
+                className="font-jost text-xs uppercase tracking-[0.55em] text-[#0C0A08]/45"
+                initial={{ opacity: 0, y: 10 }}
+                animate={distinctionsDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
+              >
+                Distinctions
+              </motion.p>
+              <motion.span
+                className="h-px flex-1 bg-[#0C0A08]/15"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={distinctionsDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.4, ease: easeOutExpo, delay: 0.1 }}
+              />
             </div>
-            <h2 className="mt-8 font-cormorant text-5xl leading-tight text-cream md:text-6xl">
+            <motion.h2
+              className="mt-8 font-cormorant text-5xl leading-tight text-[#0C0A08] md:text-6xl"
+              initial={{ opacity: 0, y: 40 }}
+              animate={distinctionsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 0.3 }}
+            >
               Deux titres. <span className="text-gold">Un seul homme en France.</span>
-            </h2>
-            <p className="mt-6 font-jost text-xs uppercase tracking-[0.25em] text-mid">
+            </motion.h2>
+            <p className="mt-6 font-jost text-xs uppercase tracking-[0.25em] text-[#0C0A08]/45">
               Une distinction que nul autre fleuriste ne possède
             </p>
           </RevealWrapper>
         </SectionContainer>
 
-        <div className="mt-16 grid w-full lg:grid-cols-2 lg:divide-x lg:divide-gold/10">
+        <div className="mt-16 grid w-full items-stretch lg:grid-cols-2 lg:divide-x lg:divide-gold/10">
           <RevealWrapper>
-            <article className="relative border-t border-gold/15 px-8 py-16 transition hover:bg-white/[0.025] md:px-16 md:py-20">
-              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-gold/6">
+            <motion.article
+              className="relative flex h-full flex-col border-t border-[#0C0A08]/10 bg-white/60 px-8 py-16 transition duration-300 hover:bg-white/90 md:px-16 md:py-20"
+              initial={{ opacity: 0, x: -40 }}
+              animate={distinctionsInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 0.1 }}
+            >
+              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-[#0C0A08]/8">
                 I
               </span>
-              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-gold/45">
+              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-gold">
                 Première distinction
               </p>
-              <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-cream">
+              <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-[#0C0A08]">
                 {"Maître\nFleuriste"}
               </h3>
-              <div className="my-7 h-px w-10 bg-gold/35" />
-              <p className="max-w-xl text-base leading-relaxed text-cream/75">
+              <motion.div
+                className="my-7 h-px w-10 bg-gold"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={distinctionsInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.5 }}
+              />
+              <p className="max-w-xl flex-1 text-base leading-relaxed text-[#0C0A08]/70">
                 Le titre de Maître Fleuriste est la plus haute distinction artisanale de la
                 profession en France. Décerné après des décennies d&apos;excellence et une maîtrise
                 technique hors pair, il consacre l&apos;artisan au sommet de son art.
               </p>
-            </article>
+            </motion.article>
           </RevealWrapper>
 
           <RevealWrapper>
-            <article className="relative border-t border-gold/15 px-8 py-16 transition hover:bg-white/[0.025] md:px-16 md:py-20">
-              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-gold/6">
+            <motion.article
+              className="relative flex h-full flex-col border-t border-[#0C0A08]/10 bg-white/60 px-8 py-16 transition duration-300 hover:bg-white/90 md:px-16 md:py-20"
+              initial={{ opacity: 0, x: 40 }}
+              animate={distinctionsInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 0.25 }}
+            >
+              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-[#0C0A08]/8">
                 II
               </span>
-              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-gold/45">
+              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-gold">
                 Deuxième distinction
               </p>
-              <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-cream">
-                {"Maître Artisan\nd&apos;Art"}
+              <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-[#0C0A08]">
+                {"Maître Artisan\nd\u2019Art"}
               </h3>
-              <p className="mt-4 font-jost text-[9px] uppercase tracking-[0.25em] text-gold/60">
+              <p className="mt-4 font-jost text-[9px] uppercase tracking-[0.25em] text-[#0C0A08]/50">
                 Parcs &amp; Jardins du Patrimoine
               </p>
-              <div className="my-7 h-px w-10 bg-gold/35" />
-              <p className="max-w-xl text-base leading-relaxed text-cream/75">
+              <motion.div
+                className="my-7 h-px w-10 bg-gold"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={distinctionsInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.5 }}
+              />
+              <p className="max-w-xl flex-1 text-base leading-relaxed text-[#0C0A08]/70">
                 Titre d&apos;État décerné aux artisans dont le savoir-faire constitue un patrimoine
                 culturel vivant. Dans le domaine des Parcs et Jardins du Patrimoine, Thomas
                 Bouilhol est gardien d&apos;un art dont les racines traversent les siècles.
               </p>
-            </article>
+            </motion.article>
           </RevealWrapper>
         </div>
 
-        <div className="border-t border-gold/10 bg-gold/[0.04] py-8 text-center">
-          <p className="font-cormorant text-[clamp(1rem,2.5vw,1.5rem)] italic text-gold/75">
+        <div className="border-t border-[#0C0A08]/10 bg-[rgba(12,10,8,0.04)] py-8 text-center">
+          <p className="font-cormorant text-[clamp(1rem,2.5vw,1.5rem)] italic text-[#0C0A08]/60">
             Seul fleuriste en France à détenir simultanément ces deux distinctions.
           </p>
         </div>
       </section>
 
-      <CheckerDivider invert />
-      <section className="bg-cream py-20 md:py-28">
+      <section ref={citationRef} className="relative isolate bg-[#F5F0E8] py-20 md:py-28">
         <SectionContainer>
           <RevealWrapper className="mx-auto max-w-3xl text-center">
-            <p className="font-cormorant text-[7rem] leading-none text-[#0C0A08]/12">&ldquo;</p>
-            <blockquote className="-mt-8 font-cormorant text-[clamp(1.4rem,3vw,2.3rem)] italic text-[#0C0A08]">
-              Là où l&apos;esprit ne travaille pas avec la main,
-              <br />
-              il n&apos;y a pas d&apos;art.
-            </blockquote>
-            <footer className="mt-10">
-              <div className="mx-auto mb-4 h-px w-10 bg-[#0C0A08]/20" />
-              <p className="font-jost text-[10px] uppercase tracking-[0.35em] text-[#0C0A08]/45">
+            <motion.p
+              className="font-cormorant text-[7rem] leading-none text-[#0C0A08]/15"
+              initial={{ opacity: 0, y: 30, scale: 0.8 }}
+              animate={citationInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 1.2, ease: easeOutExpo }}
+            >
+              &ldquo;
+            </motion.p>
+            <motion.blockquote
+              className="-mt-8 font-cormorant text-[clamp(1.6rem,3.2vw,2.5rem)] italic text-[#0C0A08]"
+              variants={{
+                hidden: {},
+                show: { transition: { delayChildren: 0.2, staggerChildren: 0.03 } },
+              }}
+              initial="hidden"
+              animate={citationInView ? "show" : "hidden"}
+            >
+              {citationWords.map((word, index) => (
+                <motion.span
+                  key={`${word}-${index}`}
+                  className="mr-2 inline-block"
+                  variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.6, ease: easeOutExpo }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.blockquote>
+            <motion.footer
+              className="mt-10"
+              initial={{ opacity: 0 }}
+              animate={citationInView ? { opacity: 1 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 1.1 }}
+            >
+              <div className="mx-auto mb-4 h-px w-10 bg-[#0C0A08]/25" />
+              <p className="font-jost text-[10px] uppercase tracking-[0.35em] text-[#0C0A08]/50">
                 Léonard de Vinci
               </p>
               <p className="mt-3 font-cormorant text-sm italic text-[#0C0A08]/35">
                 La devise qui guide chaque création de Thomas Bouilhol.
               </p>
-            </footer>
+            </motion.footer>
           </RevealWrapper>
         </SectionContainer>
       </section>
-      <CheckerDivider invert />
 
-      <section id="portrait" className="bg-background py-24 md:py-32">
+      <section id="portrait" ref={portraitRef} className="relative isolate bg-[#EDE8DF] py-24 md:py-32">
         <SectionContainer>
           <RevealWrapper>
-            <div className="mx-auto flex max-w-xl items-center gap-5">
-              <span className="h-px flex-1 bg-gold/15" />
-              <p className="font-jost text-[9px] uppercase tracking-[0.55em] text-gold/50">Portrait</p>
-              <span className="h-px flex-1 bg-gold/15" />
+            <div ref={portraitDecorRef} className="mx-auto flex max-w-xl items-center gap-5">
+              <motion.span
+                className="h-px flex-1 bg-[#0C0A08]/15"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={portraitDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.4, ease: easeOutExpo }}
+              />
+              <motion.p
+                className="font-jost text-[9px] uppercase tracking-[0.55em] text-[#0C0A08]/45"
+                initial={{ opacity: 0, y: 10 }}
+                animate={portraitDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
+              >
+                Portrait
+              </motion.p>
+              <motion.span
+                className="h-px flex-1 bg-[#0C0A08]/15"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={portraitDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.4, ease: easeOutExpo, delay: 0.1 }}
+              />
             </div>
             <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-24">
-              <blockquote className="font-cormorant text-[clamp(1.7rem,3.5vw,3rem)] italic leading-tight text-cream">
+              <motion.blockquote
+                className="font-cormorant text-[clamp(1.7rem,3.5vw,3rem)] italic leading-tight text-[#0C0A08]"
+                style={{ y: portraitQuoteY }}
+                initial={{ opacity: 0, x: -60 }}
+                animate={portraitInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 1.2, ease: easeOutExpo }}
+              >
                 « Ce qui m&apos;intéresse,
                 <br />
                 c&apos;est d&apos;aller à l&apos;avant
                 <br />
                 de ce que je vis. »
-              </blockquote>
-              <div className="space-y-6 text-[15px] text-cream/65">
-                <p className="leading-relaxed">
+              </motion.blockquote>
+              <motion.div
+                className="space-y-6 text-[15px] text-[#0C0A08]/65"
+                variants={{
+                  hidden: {},
+                  show: { transition: { delayChildren: 0.2, staggerChildren: 0.15 } },
+                }}
+                initial="hidden"
+                animate={portraitInView ? "show" : "hidden"}
+              >
+                <motion.p
+                  className="leading-relaxed"
+                  variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.9, ease: easeOutExpo }}
+                >
                   Depuis ses 14 ans, Thomas Bouilhol vit en compagnie des fleurs. Autodidacte, guidé
                   par le ressenti et l&apos;exigence du geste juste, il a bâti une œuvre florale
                   reconnue des plus grands établissements de la Côte d&apos;Azur et au-delà.
-                </p>
-                <p className="leading-relaxed">
-                  <em className="font-cormorant text-[1.15rem] italic text-cream/85">
+                </motion.p>
+                <motion.p
+                  className="leading-relaxed"
+                  variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.9, ease: easeOutExpo }}
+                >
+                  <em className="font-cormorant text-[1.15rem] italic text-[#0C0A08]/85">
                     Idéateur végétal
                   </em>{" "}
                   — il ne se contente pas d&apos;arranger des fleurs. Il conçoit des univers
                   végétaux, des architectures éphémères qui capturent l&apos;instant et transcendent
                   le décor.
-                </p>
-                <div className="border-t border-gold/15 pt-6">
-                  <p className="font-jost text-[9px] uppercase tracking-[0.3em] text-gold/55">
+                </motion.p>
+                <motion.div
+                  className="border-t border-[#0C0A08]/12 pt-6"
+                  variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.9, ease: easeOutExpo }}
+                >
+                  <p className="font-jost text-[9px] uppercase tracking-[0.3em] text-[#0C0A08]/45">
                     Domaines d&apos;excellence
                   </p>
-                  <p className="mt-4 text-sm leading-loose text-cream/50">
-                    Mariages <span className="text-gold">·</span> Deuil{" "}
-                    <span className="text-gold">·</span> Parcs et Jardins du Patrimoine{" "}
-                    <span className="text-gold">·</span> Cours d&apos;art floral{" "}
-                    <span className="text-gold">·</span> Décoration d&apos;intérieur
-                  </p>
-                </div>
-              </div>
+                  <motion.p
+                    className="mt-4 text-sm leading-loose text-[#0C0A08]/55"
+                    variants={{
+                      hidden: {},
+                      show: { transition: { delayChildren: 0.1, staggerChildren: 0.08 } },
+                    }}
+                    initial="hidden"
+                    animate={portraitInView ? "show" : "hidden"}
+                  >
+                    {[
+                      "Mariages",
+                      "·",
+                      "Deuil",
+                      "·",
+                      "Parcs et Jardins du Patrimoine",
+                      "·",
+                      "Cours d'art floral",
+                      "·",
+                      "Décoration d'intérieur",
+                    ].map((item, index) => (
+                      <motion.span
+                        key={`${item}-${index}`}
+                        className={item === "·" ? "mx-1 text-gold" : ""}
+                        variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
+                        transition={{ duration: 0.8, ease: easeOutExpo }}
+                      >
+                        {item}
+                      </motion.span>
+                    ))}
+                  </motion.p>
+                </motion.div>
+              </motion.div>
             </div>
           </RevealWrapper>
         </SectionContainer>
       </section>
 
-      <section className="bg-background py-24 md:py-28">
+      <section ref={trustRef} className="relative isolate bg-[#0C0A08] py-24 md:py-28">
         <SectionContainer>
           <RevealWrapper>
-            <h2 className="text-center font-cormorant text-5xl italic text-cream">Ils lui font confiance</h2>
-            <p className="mt-5 text-center font-jost text-xs uppercase tracking-[0.25em] text-gold/70">
+            <motion.h2
+              className="text-center font-cormorant text-5xl italic text-cream"
+              initial={{ opacity: 0, y: 40 }}
+              animate={trustInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo }}
+            >
+              Ils lui font confiance
+            </motion.h2>
+            <p className="mt-5 text-center font-jost text-xs uppercase tracking-[0.25em] text-gold/80">
               Palaces · Institutions · Événements privés
             </p>
             <div className="mx-auto mt-12 flex max-w-5xl flex-col items-center justify-center gap-5 text-center md:flex-row md:gap-8">
-              <p className="text-sm uppercase tracking-[0.3em] text-cream/60">Hôtel Negresco · Nice</p>
-              <span className="hidden h-7 w-px bg-gold/20 md:block" />
-              <p className="text-sm uppercase tracking-[0.3em] text-cream/60">Principauté de Monaco</p>
-              <span className="hidden h-7 w-px bg-gold/20 md:block" />
-              <p className="text-sm uppercase tracking-[0.3em] text-cream/60">
+              <motion.p
+                className="text-sm uppercase tracking-[0.3em] text-cream/85"
+                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.1 }}
+              >
+                Hôtel Negresco · Nice
+              </motion.p>
+              <motion.span
+                className="hidden h-7 w-px bg-gold/25 md:block"
+                initial={{ scaleY: 0 }}
+                animate={trustInView ? { scaleY: 1 } : {}}
+                transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.3 }}
+              />
+              <motion.p
+                className="text-sm uppercase tracking-[0.3em] text-cream/85"
+                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.3 }}
+              >
+                Principauté de Monaco
+              </motion.p>
+              <motion.span
+                className="hidden h-7 w-px bg-gold/25 md:block"
+                initial={{ scaleY: 0 }}
+                animate={trustInView ? { scaleY: 1 } : {}}
+                transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.5 }}
+              />
+              <motion.p
+                className="text-sm uppercase tracking-[0.3em] text-cream/85"
+                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.5 }}
+              >
                 Parcs &amp; Jardins du Patrimoine
-              </p>
+              </motion.p>
             </div>
-            <p className="mt-10 text-center text-sm italic text-mid">
+            <p className="mt-10 text-center text-sm italic text-gold/65">
               Et de nombreux particuliers, familles et domaines privés de la Côte d&apos;Azur.
             </p>
           </RevealWrapper>
         </SectionContainer>
       </section>
 
-      <section id="creations" className="bg-cream py-24 md:py-32">
+      <section id="creations" ref={creationsRef} className="relative isolate bg-[#F5F0E8] py-24 md:py-32">
         <SectionContainer>
           <RevealWrapper>
-            <h2 className="font-cormorant text-5xl italic text-[#0C0A08]">Quelques créations</h2>
+            <motion.h2
+              className="font-cormorant text-6xl italic text-[#0C0A08] md:text-7xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={creationsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo }}
+            >
+              Quelques créations
+            </motion.h2>
             <div className="mt-12 grid gap-5 md:grid-cols-3">
               {gallery.map((item, index) => (
-                <div key={item.src} className={`group relative overflow-hidden ${item.height}`}>
+                <motion.div
+                  key={item.src}
+                  className={`group relative overflow-hidden shadow-sm transition-shadow duration-500 hover:shadow-md ${item.height}`}
+                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                  animate={creationsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                  transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.12 }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <Image src={item.src} alt={item.alt} fill className="object-cover transition duration-700 group-hover:scale-[1.02]" />
-                  <div className="absolute inset-0 bg-gold/0 transition duration-700 group-hover:bg-gold/10" />
+                  <div className="absolute inset-0 bg-gold/0 transition duration-700 group-hover:bg-gold/15" />
                   <span className="sr-only">Création florale {index + 1}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </RevealWrapper>
         </SectionContainer>
       </section>
 
-      <section id="maisons" className="bg-background py-24 md:py-32">
+      <section id="maisons" ref={maisonsRef} className="relative isolate bg-[#F5F0E8] py-24 md:py-32">
         <SectionContainer>
           <RevealWrapper>
-            <h2 className="text-center font-cormorant text-4xl italic text-cream">
+            <motion.h2
+              className="text-center font-cormorant text-4xl italic text-[#0C0A08]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo }}
+            >
               Un univers, plusieurs maisons
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-center text-sm text-mid">
+            </motion.h2>
+            <motion.p
+              className="mx-auto mt-5 max-w-2xl text-center text-sm text-[#0C0A08]/55"
+              initial={{ opacity: 0, y: 30 }}
+              animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 0.1 }}
+            >
               Thomas Bouilhol a fondé plusieurs établissements. Chacun reflète une facette de son
               art.
-            </p>
+            </motion.p>
             <div className="mt-14 space-y-8">
               {[
                 {
@@ -312,81 +600,136 @@ export default function Home() {
                   address: "5 Rue de l'Ancien Sénat, 06300 Nice",
                   tag: "Art floral & café",
                 },
-              ].map((house) => (
-                <a
+              ].map((house, index) => (
+                <motion.a
                   key={house.title}
                   href="#"
-                  className="flex items-start justify-between border-t border-gold/30 pt-6 text-cream transition hover:border-gold"
+                  className="relative flex items-start justify-between border-t border-[#0C0A08]/15 pt-6 text-[#0C0A08] transition hover:border-[#0C0A08]/60"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={maisonsInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.2 }}
                 >
-                  <div>
-                    <h3 className="font-cormorant text-3xl">{house.title}</h3>
-                    <p className="mt-2 text-sm text-cream/75">{house.address}</p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-gold/80">{house.tag}</p>
+                  <motion.div
+                    className="absolute left-0 right-0 top-0 h-px origin-left bg-[#0C0A08]/15"
+                    initial={{ scaleX: 0 }}
+                    animate={maisonsInView ? { scaleX: 1 } : {}}
+                    transition={{ duration: 0.8, ease: easeOutExpo, delay: index * 0.2 + 0.1 }}
+                  />
+                  <div className="relative">
+                    <h3 className="font-cormorant text-3xl text-[#0C0A08]">{house.title}</h3>
+                    <p className="mt-2 text-sm text-[#0C0A08]/60">{house.address}</p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-gold">{house.tag}</p>
                   </div>
-                  <span className="text-2xl text-gold">→</span>
-                </a>
+                  <motion.span className="text-2xl text-gold" whileHover={{ x: 8 }} transition={{ duration: 0.3, ease: "easeOut" }}>
+                    →
+                  </motion.span>
+                </motion.a>
               ))}
             </div>
           </RevealWrapper>
         </SectionContainer>
       </section>
 
-      <section id="contact" className="bg-background py-24 md:py-32">
+      <section id="contact" ref={contactRef} className="relative isolate bg-[#0C0A08] py-24 md:py-32">
         <SectionContainer>
           <RevealWrapper className="mx-auto max-w-lg text-center">
-            <div className="mx-auto flex items-center gap-5">
-              <span className="h-px flex-1 bg-gold/15" />
-              <p className="font-jost text-[9px] uppercase tracking-[0.55em] text-gold/50">Contact</p>
-              <span className="h-px flex-1 bg-gold/15" />
+            <div ref={contactDecorRef} className="mx-auto flex items-center gap-5">
+              <motion.span
+                className="h-px flex-1 bg-gold/30"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={contactDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.4, ease: easeOutExpo }}
+              />
+              <motion.p
+                className="font-jost text-[9px] uppercase tracking-[0.55em] text-gold/70"
+                initial={{ opacity: 0, y: 10 }}
+                animate={contactDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
+              >
+                Contact
+              </motion.p>
+              <motion.span
+                className="h-px flex-1 bg-gold/30"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={contactDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.4, ease: easeOutExpo, delay: 0.1 }}
+              />
             </div>
-            <h2 className="mt-8 font-cormorant text-[clamp(2.2rem,4vw,3.8rem)] italic text-cream">
+            <motion.h2
+              className="mt-8 font-cormorant text-[clamp(2.2rem,4vw,3.8rem)] italic text-cream"
+              initial={{ opacity: 0, y: 40 }}
+              animate={contactInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1.2, ease: easeOutExpo }}
+            >
               Entrer en contact
-            </h2>
-            <p className="mt-4 font-cormorant text-lg italic text-mid">Pour les projets d&apos;exception.</p>
-            <div className="mx-auto my-10 h-px w-12 bg-gold/25" />
-            <div className="space-y-8 text-cream/60">
-              <div>
-                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-gold/45">
+            </motion.h2>
+            <p className="mt-4 font-cormorant text-lg italic text-gold/65">Pour les projets d&apos;exception.</p>
+            <motion.div
+              className="mx-auto my-10 h-px w-12 bg-gold/40"
+              initial={{ scaleX: 0, originX: 0.5 }}
+              animate={contactInView ? { scaleX: 1 } : {}}
+              transition={{ duration: 0.8, ease: easeOutExpo }}
+            />
+            <motion.div
+              className="space-y-8 text-cream/80"
+              variants={{
+                hidden: {},
+                show: { transition: { delayChildren: 0.2, staggerChildren: 0.15 } },
+              }}
+              initial="hidden"
+              animate={contactInView ? "show" : "hidden"}
+            >
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.8, ease: easeOutExpo }}
+              >
+                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-gold/65">
                   Adresse
                 </p>
                 <p className="text-[15px]">5 Place de l&apos;Ancien Sénat</p>
                 <p className="text-[15px]">06300 Nice</p>
-              </div>
-              <div>
-                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-gold/45">
+              </motion.div>
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.8, ease: easeOutExpo }}
+              >
+                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-gold/65">
                   Téléphone
                 </p>
                 <a href="tel:+33664062422" className="text-[15px] transition hover:text-cream">
                   +33 6 64 06 24 22
                 </a>
-              </div>
-              <div>
-                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-gold/45">
+              </motion.div>
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.8, ease: easeOutExpo }}
+              >
+                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-gold/65">
                   Email
                 </p>
                 <a
                   href="mailto:contact@thomas-bouilhol.com"
-                  className="text-[15px] text-gold/70 underline-offset-4 transition hover:text-gold hover:underline"
+                  className="text-[15px] text-gold underline-offset-4 transition hover:text-gold hover:underline"
                 >
                   contact@thomas-bouilhol.com
                 </a>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </RevealWrapper>
         </SectionContainer>
       </section>
 
-      <footer className="border-t border-gold/10 bg-background py-14 text-center">
-        <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/25">
+      <footer className="relative isolate border-t border-gold/10 bg-[#0C0A08] py-14 text-center">
+        <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/45">
           <span className="font-cormorant text-lg italic text-gold/50">TB</span>
         </div>
-        <p className="font-cormorant text-2xl text-cream/35">Thomas Bouilhol</p>
-        <p className="mt-2 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/25">
+        <p className="font-cormorant text-2xl text-cream/55">Thomas Bouilhol</p>
+        <p className="mt-2 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/35">
           Maître Fleuriste · Maître Artisan d&apos;Art
         </p>
-        <p className="mt-2 font-cormorant text-sm italic text-gold/30">Idéateur végétal · Nice</p>
-        <div className="mx-auto mt-7 h-px w-8 bg-gold/15" />
-        <p className="mt-6 font-jost text-[9px] text-cream/20">© 2026 Thomas Bouilhol</p>
+        <p className="mt-2 font-cormorant text-sm italic text-gold/50">Idéateur végétal · Nice</p>
+        <div className="mx-auto mt-7 h-px w-8 bg-gold/25" />
+        <p className="mt-6 font-jost text-[9px] text-cream/30">© 2026 Thomas Bouilhol</p>
       </footer>
     </main>
   );

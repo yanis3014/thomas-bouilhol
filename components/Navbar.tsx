@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -23,10 +24,13 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
+    <motion.header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-[#0C0A08]/90 backdrop-blur" : "bg-transparent"
+        scrolled ? "bg-[#0C0A08]/90 backdrop-blur" : "bg-gradient-to-b from-black/30 to-transparent"
       }`}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5 md:px-10">
         <Link href="#" className="flex items-center gap-3">
@@ -38,14 +42,20 @@ export function Navbar() {
           </span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <Link
+          {navItems.map((item, index) => (
+            <motion.div
               key={item.href}
-              href={item.href}
-              className="font-jost text-xs uppercase tracking-[0.2em] text-cream/60 transition hover:text-gold"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.7 + index * 0.08 }}
             >
-              {item.label}
-            </Link>
+              <Link
+                href={item.href}
+                className="font-jost text-xs uppercase tracking-[0.2em] text-cream/60 transition hover:text-gold"
+              >
+                {item.label}
+              </Link>
+            </motion.div>
           ))}
         </div>
         <button
@@ -82,6 +92,6 @@ export function Navbar() {
           </div>
         </div>
       ) : null}
-    </header>
+    </motion.header>
   );
 }
