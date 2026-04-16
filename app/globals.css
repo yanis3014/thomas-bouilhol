@@ -3,11 +3,25 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#F5F0E8] text-cream;
+  @apply bg-cream text-textPrimary;
+  line-height: 1.7;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+blockquote {
+  font-family: var(--font-cormorant), serif;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+
+.uppercase {
+  letter-spacing: 0.04em;
 }
 
 @keyframes sovereignBounce {
@@ -22,4 +36,27 @@ html {
 
 .animate-sovereign-bounce {
   animation: sovereignBounce 1.8s ease-in-out infinite;
+}
+
+.lux-link {
+  position: relative;
+  display: inline-block;
+}
+
+.lux-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15rem;
+  width: 100%;
+  height: 1px;
+  background: #c9a98a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.lux-link:hover::after,
+.lux-link:focus-visible::after {
+  transform: scaleX(1);
 }

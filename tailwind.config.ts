@@ -9,10 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0C0A08",
+        background: "#0F0F0D",
+        secondary: "#1A1C17",
+        green: "#4A5E3A",
         cream: "#F5F0E8",
-        gold: "#C9A96E",
-        mid: "#8A7F72",
+        blush: "#C9A98A",
+        textPrimary: "#F5F0E8",
+        muted: "#9A9A8A",
         white: "#FDFAF4",
       },
       fontFamily: {

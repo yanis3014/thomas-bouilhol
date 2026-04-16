@@ -17,7 +17,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,7 +26,7 @@ export function Navbar() {
   return (
     <motion.header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-[#0C0A08]/90 backdrop-blur" : "bg-gradient-to-b from-black/30 to-transparent"
+        scrolled ? "scrolled bg-background/90 backdrop-blur" : "bg-gradient-to-b from-background/40 to-transparent"
       }`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -34,8 +34,8 @@ export function Navbar() {
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5 md:px-10">
         <Link href="#" className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/40">
-            <span className="font-cormorant text-sm italic text-gold">TB</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-green/40">
+            <span className="font-cormorant text-sm italic text-cream">TB</span>
           </span>
           <span className="font-cormorant text-2xl font-light tracking-wide text-cream">
             Thomas Bouilhol
@@ -51,7 +51,7 @@ export function Navbar() {
             >
               <Link
                 href={item.href}
-                className="font-jost text-xs uppercase tracking-[0.2em] text-cream/60 transition hover:text-gold"
+                className="lux-link font-jost text-xs uppercase tracking-[0.2em] text-cream/75 transition hover:text-blush"
               >
                 {item.label}
               </Link>
@@ -77,13 +77,13 @@ export function Navbar() {
         </button>
       </nav>
       {mobileOpen ? (
-        <div className="border-t border-gold/10 bg-[#0C0A08]/95 px-6 py-6 backdrop-blur md:hidden">
+        <div className="border-t border-green/20 bg-background/95 px-6 py-6 backdrop-blur md:hidden">
           <div className="flex flex-col gap-5">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-2 font-jost text-sm uppercase tracking-[0.2em] text-cream/60 transition hover:text-gold"
+                className="lux-link py-2 font-jost text-sm uppercase tracking-[0.2em] text-cream/75 transition hover:text-blush"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
@@ -92,6 +92,11 @@ export function Navbar() {
           </div>
         </div>
       ) : null}
+      <div
+        className={`absolute inset-x-0 bottom-0 h-px bg-green transition-transform duration-500 ease-out ${
+          scrolled ? "scale-x-100" : "scale-x-0"
+        }`}
+      />
     </motion.header>
   );
 }
