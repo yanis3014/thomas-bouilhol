@@ -86,9 +86,9 @@ export default function Home() {
     <main className="overflow-x-hidden bg-cream">
       <Navbar />
 
-      <section className="relative isolate z-10 min-h-[100vh] overflow-hidden bg-background md:grid md:grid-cols-[45%_55%]">
+      <section className="relative isolate z-10 min-h-[100vh] max-w-[100vw] overflow-x-hidden overflow-y-hidden bg-background md:grid md:grid-cols-[45%_55%]">
         <motion.div
-          className="absolute inset-0 md:relative md:inset-auto md:min-h-[100vh]"
+          className="absolute inset-0 max-w-[100vw] overflow-hidden after:pointer-events-none after:absolute after:inset-0 after:z-[1] after:bg-[linear-gradient(to_top,rgba(10,10,8,0.85)_0%,rgba(10,10,8,0.4)_60%,transparent_100%)] md:relative md:inset-auto md:min-h-[100vh] md:after:hidden"
           initial={{ clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
           transition={{ duration: 1.4, ease: easeOutExpo, delay: 0.3 }}
@@ -109,7 +109,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/70 md:hidden" />
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-center bg-transparent px-5 pb-16 pt-10 md:relative md:inset-auto md:z-auto md:min-h-[100vh] md:bg-secondary md:px-6 md:py-16">
+        <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center bg-transparent px-5 pb-16 pt-10 md:relative md:inset-auto md:z-auto md:min-h-[100vh] md:bg-secondary md:px-6 md:py-16">
           <div className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 text-green/[0.12] md:block">
             <svg
               viewBox="0 0 120 420"
@@ -145,7 +145,7 @@ export default function Home() {
                 "radial-gradient(ellipse at 50% 30%, rgba(74,94,58,0.08) 0%, transparent 70%)",
             }}
           />
-          <RevealWrapper className="relative z-10 text-center">
+          <RevealWrapper className="relative z-20 text-center">
             <motion.div
               className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-green/70 shadow-[0_0_60px_rgba(74,94,58,0.22)] md:h-20 md:w-20"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -164,14 +164,15 @@ export default function Home() {
               <span className="font-cormorant text-2xl italic text-cream">TB</span>
             </motion.div>
             <motion.p
-              className="mt-7 font-jost text-xs uppercase tracking-[0.55em] text-muted"
+              className="mt-7 font-jost text-xs uppercase tracking-[0.62em] text-muted"
               initial={{ opacity: 0, letterSpacing: "0.8em" }}
               animate={{ opacity: 1, letterSpacing: "0.55em" }}
               transition={{ duration: 1, ease: easeOutExpo, delay: 1.2 }}
+              style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
             >
               Nice · Côte d&apos;Azur · France
             </motion.p>
-            <h1 className="mt-8 font-cormorant text-[clamp(3.5rem,9vw,7rem)] font-light leading-none text-cream">
+            <h1 className="mt-8 font-cormorant text-[clamp(2.8rem,10vw,4rem)] font-light leading-none text-cream md:text-[clamp(3.5rem,9vw,7rem)]">
               <motion.span
                 className="block"
                 initial={{ y: 80, opacity: 0 }}

@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${cormorant.variable} ${inter.variable} font-jost antialiased`}>
+      <body className={`${cormorant.variable} ${inter.variable} overflow-x-hidden font-jost antialiased`}>
         {children}
       </body>
     </html>
