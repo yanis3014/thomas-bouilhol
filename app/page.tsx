@@ -292,10 +292,10 @@ export default function Home() {
               animate={distinctionsInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 1, ease: easeOutExpo, delay: 0.1 }}
             >
-              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-green/20">
+              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-blush/80">
                 I
               </span>
-              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-cream">
+              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-blush/80">
                 Première distinction
               </p>
               <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-background">
@@ -324,16 +324,16 @@ export default function Home() {
               animate={distinctionsInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 1, ease: easeOutExpo, delay: 0.25 }}
             >
-              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-green/20">
+              <span className="pointer-events-none absolute right-8 top-2 font-cormorant text-[clamp(6rem,12vw,10rem)] leading-none text-blush/80">
                 II
               </span>
-              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-cream">
+              <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-blush/80">
                 Deuxième distinction
               </p>
               <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-background">
                 {"Maître Artisan\nd\u2019Art"}
               </h3>
-              <p className="mt-4 font-jost text-[9px] uppercase tracking-[0.25em] text-muted">
+              <p className="mt-4 font-jost text-[9px] uppercase tracking-[0.25em] text-blush/80">
                 Parcs &amp; Jardins du Patrimoine
               </p>
               <motion.div
@@ -364,7 +364,7 @@ export default function Home() {
         <SectionContainer>
           <RevealWrapper className="mx-auto max-w-3xl text-center">
             <motion.p
-              className="font-cormorant text-[7rem] leading-none text-background/20"
+              className="font-cormorant text-[7rem] leading-none text-blush/80"
               initial={{ opacity: 0, y: 30, scale: 0.8 }}
               animate={citationInView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 1.2, ease: easeOutExpo }}
@@ -398,7 +398,7 @@ export default function Home() {
               transition={{ duration: 1, ease: easeOutExpo, delay: 1.1 }}
             >
               <DecorativeLine className="mb-4" />
-              <p className="font-jost text-[10px] uppercase tracking-[0.35em] text-muted">
+              <p className="font-jost text-[10px] uppercase tracking-[0.35em] text-blush/80">
                 Léonard de Vinci
               </p>
               <p className="mt-3 font-cormorant text-sm italic text-muted">
@@ -420,7 +420,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: easeOutExpo }}
               />
               <motion.p
-                className="font-jost text-[9px] uppercase tracking-[0.55em] text-cream"
+                className="font-jost text-[9px] uppercase tracking-[0.55em] text-blush/80"
                 initial={{ opacity: 0, y: 10 }}
                 animate={portraitDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                 transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
@@ -483,7 +483,7 @@ export default function Home() {
                   variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
                   transition={{ duration: 0.9, ease: easeOutExpo }}
                 >
-                  <p className="font-jost text-[9px] uppercase tracking-[0.3em] text-muted">
+                  <p className="font-jost text-[9px] uppercase tracking-[0.3em] text-blush/80">
                     Domaines d&apos;excellence
                   </p>
                   <motion.p
@@ -539,7 +539,7 @@ export default function Home() {
             </p>
             <div className="mx-auto mt-12 flex max-w-5xl flex-col items-center justify-center gap-5 text-center md:flex-row md:gap-8">
               <motion.p
-                className="text-sm uppercase tracking-[0.3em] text-cream/85"
+                className="text-sm uppercase tracking-[0.3em] text-blush/85"
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.1 }}
@@ -553,7 +553,7 @@ export default function Home() {
                 transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.3 }}
               />
               <motion.p
-                className="text-sm uppercase tracking-[0.3em] text-cream/85"
+                className="text-sm uppercase tracking-[0.3em] text-blush/85"
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.3 }}
@@ -567,7 +567,7 @@ export default function Home() {
                 transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.5 }}
               />
               <motion.p
-                className="text-sm uppercase tracking-[0.3em] text-cream/85"
+                className="text-sm uppercase tracking-[0.3em] text-blush/85"
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.5 }}
