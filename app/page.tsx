@@ -1,6 +1,7 @@
  "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
@@ -48,8 +49,35 @@ function DecorativeLine({ className = "" }: { className?: string }) {
   );
 }
 
+type MaisonPreview = {
+  name: string;
+  address: string;
+  tag: string;
+  previewRoute: string;
+};
+
 export default function Home() {
   const easeOutExpo = [0.22, 1, 0.36, 1] as const;
+  const maisons: MaisonPreview[] = [
+    {
+      name: "Azur Fleurot · Nice",
+      address: "5 Place de l'Ancien Sénat, 06300 Nice",
+      tag: "MAISON FLEURISTE",
+      previewRoute: "/preview/azur-fleurot",
+    },
+    {
+      name: "Lady Camélia · Vichy",
+      address: "20 Rue de Paris, 03200 Vichy",
+      tag: "MAISON HISTORIQUE DEPUIS 1987",
+      previewRoute: "/preview/evenementiel",
+    },
+    {
+      name: "Thomas Bouilhol · Café Floral",
+      address: "5 Rue de l'Ancien Sénat, 06300 Nice",
+      tag: "ART FLORAL & CAFÉ",
+      previewRoute: "/preview/cafe-floral",
+    },
+  ];
   const distinctionsRef = useRef<HTMLElement | null>(null);
   const distinctionsDecorRef = useRef<HTMLDivElement | null>(null);
   const citationRef = useRef<HTMLElement | null>(null);
@@ -658,40 +686,30 @@ export default function Home() {
               art.
             </motion.p>
             <div className="mt-8 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
-              {[
-                {
-                  title: "Thomas Bouilhol · Nice",
-                  address: "5 Place de l'Ancien Sénat, 06300 Nice",
-                  tag: "Maison principale",
-                },
-                {
-                  title: "Lady Camélia · Vichy",
-                  address: "20 Rue de Paris, 03200 Vichy",
-                  tag: "Maison historique depuis 1987",
-                },
-                {
-                  title: "Thomas Bouilhol · Café Floral",
-                  address: "5 Rue de l'Ancien Sénat, 06300 Nice",
-                  tag: "Art floral & café",
-                },
-              ].map((house, index) => (
-                <motion.a
-                  key={house.title}
-                  href="#"
-                  className="lux-link relative flex items-start justify-between overflow-visible whitespace-normal border-t-2 border-green bg-[rgba(74,94,58,0.04)] px-10 py-8 text-background transition duration-300 ease-out hover:bg-[rgba(74,94,58,0.09)]"
+              {maisons.map((house, index) => (
+                <motion.article
+                  key={house.name}
+                  className="relative flex w-full items-start justify-between overflow-visible whitespace-normal border-t-2 border-green bg-[rgba(74,94,58,0.04)] px-10 py-8 text-left text-background transition duration-300 ease-out hover:bg-[rgba(74,94,58,0.09)]"
                   initial={{ opacity: 0, x: -30 }}
                   animate={maisonsInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.2 }}
                 >
                   <div className="relative">
-                    <h3 className="whitespace-normal font-cormorant text-3xl text-background">{house.title}</h3>
+                    <h3 className="whitespace-normal font-cormorant text-3xl text-background">{house.name}</h3>
                     <p className="mt-2 text-sm text-muted">{house.address}</p>
                     <p className="mt-2 text-xs uppercase tracking-[0.2em] text-blush">{house.tag}</p>
                   </div>
-                  <motion.span className="text-2xl text-blush" whileHover={{ x: 6 }} transition={{ duration: 0.3, ease: "easeOut" }}>
-                    →
-                  </motion.span>
-                </motion.a>
+                  <motion.div whileHover={{ x: 6 }} transition={{ duration: 0.3, ease: "easeOut" }}>
+                    <Link
+                      href={house.previewRoute}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="lux-link text-2xl text-blush"
+                    >
+                      →
+                    </Link>
+                  </motion.div>
+                </motion.article>
               ))}
             </div>
           </RevealWrapper>

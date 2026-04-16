@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thomas Bouilhol · Café Floral</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --terracotta: #B5604A;
+    --terracotta-light: #D4836A;
+    --cream: #F8F3EB;
+    --warm-white: #FDF9F4;
+    --dark: #1E1A16;
+    --brown: #3D2B1F;
+    --green: #4A6741;
+    --muted: #9A8878;
+    --border: rgba(181,96,74,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--warm-white); color: var(--dark); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 3.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(248,243,235,0.93); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+  .nav-logo-icon {
+    width: 34px; height: 34px;
+    background: var(--terracotta);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garant', serif; font-size: 0.85rem; color: var(--warm-white); font-style: italic;
+  }
+  .nav-logo-name { font-family: 'Cormorant Garant', serif; font-size: 1rem; color: var(--dark); }
+  .nav-logo-name span { color: var(--terracotta); font-style: italic; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-reserve {
+    background: var(--terracotta); color: var(--warm-white);
+    padding: 0.6rem 1.4rem; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.3s;
+  }
+  .nav-reserve:hover { background: var(--terracotta-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    padding-top: 68px;
+  }
+  .hero-left {
+    padding: 5rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute; bottom: 0; right: 0;
+    width: 1px; height: 70%;
+    background: linear-gradient(to bottom, transparent, var(--border), transparent);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(181,96,74,0.08); border: 1px solid var(--border);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--terracotta); width: fit-content; margin-bottom: 2.5rem;
+  }
+  .hero-badge-dot { width: 5px; height: 5px; background: var(--terracotta); border-radius: 50%; }
+  .hero-title {
+    font-family: 'Cormorant Garant', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--dark); margin-bottom: 1.5rem;
+  }
+  .hero-title em { font-style: italic; color: var(--terracotta); }
+  .hero-subtitle {
+    font-size: 0.88rem; line-height: 1.9; color: var(--muted);
+    max-width: 420px; margin-bottom: 3rem;
+  }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .btn-terra {
+    background: var(--terracotta); color: var(--warm-white);
+    padding: 0.9rem 2.2rem; font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; font-weight: 500; transition: background 0.3s;
+  }
+  .btn-terra:hover { background: var(--terracotta-light); }
+  .btn-outline {
+    border: 1px solid var(--border); padding: 0.9rem 2.2rem;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--dark); text-decoration: none; transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+    background: var(--cream);
+    display: flex; align-items: stretch;
+  }
+  .hero-visual {
+    width: 100%; height: 100%; min-height: 560px;
+    background: linear-gradient(160deg, #C4896A 0%, #8B5A40 40%, #5C3220 70%, #3D2B1F 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 60%, rgba(255,220,180,0.12) 0%, transparent 60%);
+  }
+  /* Floating elements */
+  .float-tag {
+    position: absolute; background: var(--warm-white);
+    padding: 1rem 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .float-tag-1 { bottom: 3rem; left: -1.5rem; }
+  .float-tag-label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+  .float-tag-value { font-family: 'Cormorant Garant', serif; font-size: 1rem; color: var(--dark); }
+  .float-tag-2 { top: 3rem; right: -1rem; }
+
+  /* MENU */
+  .menu-section { padding: 6rem 3.5rem; background: var(--warm-white); }
+  .section-header { margin-bottom: 4rem; }
+  .section-eyebrow { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem; display: block; }
+  .section-title { font-family: 'Cormorant Garant', serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; color: var(--dark); line-height: 1.15; }
+  .section-line { width: 40px; height: 2px; background: var(--terracotta); margin-top: 1.2rem; }
+
+  .menu-tabs {
+    display: flex; gap: 0; margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    padding: 0.8rem 1.8rem; font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: all 0.3s;
+  }
+  .tab.active { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); max-width: 900px; }
+  .menu-item {
+    background: var(--warm-white); padding: 1.8rem 2rem;
+    display: flex; justify-content: space-between; align-items: start;
+    gap: 1rem; transition: background 0.3s; cursor: default;
+  }
+  .menu-item:hover { background: rgba(181,96,74,0.03); }
+  .menu-info { flex: 1; }
+  .menu-name { font-family: 'Cormorant Garant', serif; font-size: 1.1rem; color: var(--dark); margin-bottom: 0.3rem; }
+  .menu-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
+  .menu-tag-small { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); background: rgba(74,103,65,0.08); padding: 0.2rem 0.5rem; border-radius: 2px; display: inline-block; margin-top: 0.4rem; }
+  .menu-price { font-family: 'Cormorant Garant', serif; font-size: 1rem; color: var(--terracotta); white-space: nowrap; font-style: italic; }
+
+  /* PRIVATISATION */
+  .privatisation {
+    padding: 6rem 3.5rem;
+    background: var(--dark);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .priv-left { }
+  .priv-eyebrow { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta-light); margin-bottom: 1.5rem; display: block; }
+  .priv-title { font-family: 'Cormorant Garant', serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; color: var(--warm-white); line-height: 1.15; margin-bottom: 1.5rem; }
+  .priv-text { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.9; margin-bottom: 2.5rem; }
+  .priv-details { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+  .priv-detail { display: flex; align-items: center; gap: 1rem; }
+  .priv-detail-icon { width: 32px; height: 32px; border: 1px solid rgba(181,96,74,0.3); display: flex; align-items: center; justify-content: center; color: var(--terracotta-light); flex-shrink: 0; }
+  .priv-detail-text { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+  .btn-terra-outline {
+    border: 1px solid rgba(181,96,74,0.4); padding: 0.9rem 2.2rem;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--terracotta-light); text-decoration: none; transition: all 0.3s;
+    display: inline-block; width: fit-content;
+  }
+  .btn-terra-outline:hover { background: var(--terracotta); border-color: var(--terracotta); color: var(--warm-white); }
+
+  .priv-right {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .priv-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 1.5rem; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .priv-card:hover { border-color: rgba(181,96,74,0.3); }
+  .priv-card-num { font-family: 'Cormorant Garant', serif; font-size: 2.5rem; font-weight: 300; color: var(--terracotta-light); line-height: 1; margin-bottom: 0.5rem; }
+  .priv-card-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+  .priv-card.full { grid-column: 1 / -1; display: flex; align-items: center; gap: 1.5rem; text-align: left; padding: 1.5rem 2rem; }
+  .priv-card.full .priv-card-num { font-size: 1.8rem; margin: 0; }
+
+  /* HORAIRES */
+  .horaires {
+    padding: 5rem 3.5rem;
+    background: var(--cream);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .horaire-block { padding: 3rem 2rem; }
+  .horaire-title { font-family: 'Cormorant Garant', serif; font-size: 1.2rem; font-style: italic; color: var(--dark); margin-bottom: 1.5rem; }
+  .horaire-rows { display: flex; flex-direction: column; gap: 0.6rem; }
+  .horaire-row { display: flex; justify-content: space-between; font-size: 0.78rem; }
+  .horaire-day { color: var(--muted); }
+  .horaire-time { color: var(--dark); font-weight: 500; }
+  .horaire-closed { color: rgba(181,96,74,0.5); font-style: italic; }
+  .horaire-divider { width: 1px; background: var(--border); }
+
+  footer {
+    background: var(--dark); padding: 2rem 3.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .footer-text { font-size: 0.65rem; color: rgba(255,255,255,0.2); }
+  .footer-brand { font-family: 'Cormorant Garant', serif; font-size: 0.85rem; font-style: italic; color: rgba(255,255,255,0.2); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge { animation: fadeUp 0.6s ease forwards; }
+  .hero-title { animation: fadeUp 0.6s 0.15s ease both; }
+  .hero-subtitle { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-actions { animation: fadeUp 0.6s 0.45s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">CF</div>
+    <span class="nav-logo-name">Thomas Bouilhol · <span>Café Floral</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">La carte</a></li>
+    <li><a href="#">Le lieu</a></li>
+    <li><a href="#">Privatisation</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#reservation" class="nav-reserve">Réserver une table</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Ouvert aujourd'hui · 8h00 – 19h00
+    </div>
+    <h1 class="hero-title">
+      Art floral<br>&amp; <em>café</em>
+    </h1>
+    <p class="hero-subtitle">Un lieu unique à Nice où l'art floral de Thomas Bouilhol rencontre une carte de café soigneusement élaborée. Pour déjeuner, travailler, ou simplement s'arrêter.</p>
+    <div class="hero-actions">
+      <a href="#reservation" class="btn-terra">Réserver une table</a>
+      <a href="#menu" class="btn-outline">Voir la carte</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="float-tag float-tag-1">
+        <div class="float-tag-label">Adresse</div>
+        <div class="float-tag-value">5 Rue de l'Ancien Sénat</div>
+      </div>
+      <div class="float-tag float-tag-2">
+        <div class="float-tag-label">Capacité</div>
+        <div class="float-tag-value">30 couverts</div>
+      </div>
+      <!-- Coffee cup SVG -->
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.2">
+        <path d="M20 45 L20 90 Q20 100 30 100 L70 100 Q80 100 80 90 L80 45 Z" stroke="white" stroke-width="2" fill="none"/>
+        <path d="M80 55 Q100 55 100 70 Q100 85 80 85" stroke="white" stroke-width="2" fill="none"/>
+        <path d="M15 105 L85 105" stroke="white" stroke-width="2"/>
+        <path d="M40 30 Q40 20 48 20 Q48 30 40 30Z" stroke="white" stroke-width="1.5" fill="white" fill-opacity="0.15"/>
+        <path d="M55 28 Q55 18 63 18 Q63 28 55 28Z" stroke="white" stroke-width="1.5" fill="white" fill-opacity="0.15"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <span class="section-eyebrow">La carte</span>
+    <h2 class="section-title">Des saveurs<br>choisies avec soin</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="menu-tabs">
+    <div class="tab active">Boissons</div>
+    <div class="tab">Snacking</div>
+    <div class="tab">Brunch</div>
+    <div class="tab">Fleurs à emporter</div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-info">
+        <div class="menu-name">Café de spécialité</div>
+        <div class="menu-desc">Grain sélectionné, extraction sur mesure, latte art floral</div>
+        <div class="menu-tag-small">Single origin</div>
+      </div>
+      <div class="menu-price">3,50€</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-info">
+        <div class="menu-name">Thé botanique</div>
+        <div class="menu-desc">Infusion de plantes séchées du jardin, servie en théière</div>
+        <div class="menu-tag-small">Maison</div>
+      </div>
+      <div class="menu-price">5€</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-info">
+        <div class="menu-name">Latte floral</div>
+        <div class="menu-desc">Lait végétal, sirop de fleur d'oranger, pétales comestibles</div>
+      </div>
+      <div class="menu-price">5,50€</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-info">
+        <div class="menu-name">Eau pétillante maison</div>
+        <div class="menu-desc">Infusée à la rose, au concombre ou aux agrumes de Nice</div>
+        <div class="menu-tag-small">Fait maison</div>
+      </div>
+      <div class="menu-price">4€</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-info">
+        <div class="menu-name">Cappuccino</div>
+        <div class="menu-desc">Espresso double, mousse onctueuse, finition cacao</div>
+      </div>
+      <div class="menu-price">4€</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-info">
+        <div class="menu-name">Jus pressé du jour</div>
+        <div class="menu-desc">Fruits de saison, variation quotidienne selon l'arrivage</div>
+        <div class="menu-tag-small">Saison</div>
+      </div>
+      <div class="menu-price">5€</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVATISATION -->
+<section class="privatisation">
+  <div class="priv-left">
+    <span class="priv-eyebrow">Événements privés</span>
+    <h2 class="priv-title">Privatisez<br>le Café Floral</h2>
+    <p class="priv-text">Anniversaires, afterworks, shootings photo, cours d'art floral privatisés… Le Café Floral se transforme selon votre projet dans un cadre botanique unique à Nice.</p>
+    <div class="priv-details">
+      <div class="priv-detail">
+        <div class="priv-detail-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="priv-detail-text">Jusqu'à 30 personnes · Agencement modulable</span>
+      </div>
+      <div class="priv-detail">
+        <div class="priv-detail-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <span class="priv-detail-text">Disponible en dehors des horaires d'ouverture</span>
+      </div>
+      <div class="priv-detail">
+        <div class="priv-detail-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="priv-detail-text">Décoration florale personnalisée incluse</span>
+      </div>
+    </div>
+    <a href="#" class="btn-terra-outline">Demander un devis privatisation →</a>
+  </div>
+  <div class="priv-right">
+    <div class="priv-card">
+      <div class="priv-card-num">30</div>
+      <div class="priv-card-label">Personnes max</div>
+    </div>
+    <div class="priv-card">
+      <div class="priv-card-num">2h</div>
+      <div class="priv-card-label">Minimum de location</div>
+    </div>
+    <div class="priv-card full">
+      <div class="priv-card-num">★</div>
+      <div>
+        <div class="priv-card-label" style="color:rgba(255,255,255,0.45); font-size:0.78rem; line-height:1.6;">Cours d'art floral privatisés disponibles avec Thomas Bouilhol lui-même</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="horaires">
+  <div class="horaire-block">
+    <div class="horaire-title">Café & Boissons</div>
+    <div class="horaire-rows">
+      <div class="horaire-row"><span class="horaire-day">Mar – Ven</span><span class="horaire-time">8h00 – 19h00</span></div>
+      <div class="horaire-row"><span class="horaire-day">Samedi</span><span class="horaire-time">9h00 – 18h00</span></div>
+      <div class="horaire-row"><span class="horaire-day">Dim – Lun</span><span class="horaire-time horaire-closed">Fermé</span></div>
+    </div>
+  </div>
+  <div class="horaire-divider"></div>
+  <div class="horaire-block">
+    <div class="horaire-title">Cours d'art floral</div>
+    <div class="horaire-rows">
+      <div class="horaire-row"><span class="horaire-day">Mercredi</span><span class="horaire-time">14h00 – 17h00</span></div>
+      <div class="horaire-row"><span class="horaire-day">Samedi</span><span class="horaire-time">10h00 – 13h00</span></div>
+      <div class="horaire-row"><span class="horaire-day">Privatisé</span><span class="horaire-time">Sur demande</span></div>
+    </div>
+  </div>
+  <div class="horaire-divider"></div>
+  <div class="horaire-block">
+    <div class="horaire-title">Nous trouver</div>
+    <div class="horaire-rows" style="gap:0.8rem; text-align:center;">
+      <div style="font-size:0.82rem; color:var(--dark);">5 Rue de l'Ancien Sénat<br>06300 Nice</div>
+      <div style="font-size:0.78rem; color:var(--terracotta);">+33 6 64 06 24 22</div>
+      <div style="font-size:0.72rem; color:var(--muted);">cafe@thomas-bouilhol.com</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-text">© 2026 Thomas Bouilhol · Café Floral · Nice</span>
+  <span class="footer-brand">Une maison Thomas Bouilhol</span>
+</footer>
+
+</body>
+</html>
