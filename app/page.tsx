@@ -70,6 +70,83 @@ const gallery = [
   },
 ];
 
+type MaisonCardEntry = {
+  badge: string;
+  name: string;
+  description: string;
+  city: string;
+  address: string;
+  background: string;
+};
+
+const maisonCards: MaisonCardEntry[] = [
+  {
+    badge: "MAISON FLEURISTE",
+    name: "Azur Fleurot",
+    description:
+      "La boutique phare de Nice. Créations florales sur-mesure pour mariages, réceptions et décoration d'intérieur.",
+    city: "Nice",
+    address: "5 Place de l'Ancien Sénat, 06300 Nice",
+    background: "#1a1a1a",
+  },
+  {
+    badge: "MAISON HISTORIQUE · DEPUIS 1987",
+    name: "Lady Camélia",
+    description:
+      "Maison historique fondée en 1987. Le berceau du savoir-faire de Thomas Bouilhol, à Vichy.",
+    city: "Vichy",
+    address: "20 Rue de Paris, 03200 Vichy",
+    background: "#2d0a0a",
+  },
+  {
+    badge: "ART FLORAL & CAFÉ",
+    name: "Thomas Bouilhol Café Floral",
+    description:
+      "Un concept unique : atelier d'art floral et café, réunis en un seul lieu à Nice.",
+    city: "Nice",
+    address: "5 Rue de l'Ancien Sénat, 06300 Nice",
+    background: "#0f1f0f",
+  },
+];
+
+function MaisonCardLink({ maison }: { maison: MaisonCardEntry }) {
+  return (
+    <a
+      href="#contact"
+      className="group relative isolate flex h-full min-h-[420px] flex-1 cursor-pointer flex-col rounded-sm shadow-[0_20px_50px_-28px_rgba(15,15,13,0.45)] outline-none ring-green/0 transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_28px_60px_-26px_rgba(15,15,13,0.38)] focus-visible:ring-2 focus-visible:ring-green/50"
+      aria-label={`${maison.name}, ${maison.city} — contacter`}
+    >
+      <div
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: maison.background }}
+        aria-hidden="true"
+      />
+      <div className="pointer-events-none absolute inset-0 z-[2] bg-black/60" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0 z-[3] bg-transparent transition-colors duration-500 ease-out group-hover:bg-[rgba(0,0,0,0.15)]"
+        aria-hidden="true"
+      />
+      <div className="relative z-[4] flex h-full min-h-[420px] flex-col justify-center px-6 py-6 text-center">
+        <div className="mx-auto flex w-full min-w-0 max-w-md flex-col items-center">
+          <p className="font-jost text-xs tracking-widest text-white/50">{maison.badge}</p>
+          <h3 className="mt-4 font-cormorant text-2xl font-light leading-tight tracking-[0.02em] text-white drop-shadow-sm md:text-3xl">
+            {maison.name}
+          </h3>
+          <p className="mx-auto mt-2 max-w-sm text-sm font-light leading-relaxed text-white/75 md:max-w-none">
+            {maison.description}
+          </p>
+          <p className="mt-2 font-jost text-xs font-medium uppercase tracking-widest text-white/75">
+            {maison.city}
+          </p>
+        </div>
+      </div>
+      <p className="pointer-events-none absolute bottom-6 right-6 z-[5] max-w-[13rem] text-right font-jost text-xs font-light leading-snug text-white/80 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+        {maison.address}
+      </p>
+    </a>
+  );
+}
+
 const parcoursSteps: { period: string; primary: string; secondary?: string }[] = [
   { period: "2024", primary: "Création d'Azur Fleurot · Nice" },
   {
@@ -919,72 +996,28 @@ export default function Home() {
               animate={maisonsInView ? { opacity: 1, scaleX: 1 } : {}}
               transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.08 }}
             />
-            <motion.div
-              className="mx-auto mt-11 max-w-4xl text-neutral-700 md:mt-14"
-              initial={{ opacity: 0, y: 18 }}
+            <motion.p
+              className="mx-auto mt-8 max-w-xl text-center font-cormorant text-[1.05rem] font-light italic leading-relaxed text-neutral-700 md:mt-10 md:text-[1.15rem]"
+              initial={{ opacity: 0, y: 14 }}
               animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1, ease: easeOutExpo, delay: 0.1 }}
+              transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.1 }}
             >
-              <p className="text-center font-cormorant text-[1.2rem] font-light italic leading-snug tracking-[0.01em] text-neutral-900 md:text-[1.35rem] md:leading-snug">
-                Deux paysages,&nbsp;un même souffle&nbsp;: faire du végétal une langue d&apos;exception, entre la grande
-                lumière du sud et les jardins de mémoire.
-              </p>
+              Thomas Bouilhol a fondé plusieurs établissements.
+            </motion.p>
 
-              <div className="mx-auto mt-10 max-w-2xl space-y-5 text-[15px] font-light leading-[1.82] md:mt-12 md:text-[16px]">
-                <p>
-                  Thomas Bouilhol déploie ainsi son métier comme un fil tendu entre la Côte d&apos;Azur et
-                  l&apos;Auvergne&nbsp;: pont délicat jeté entre héritage et modernité, entre le geste transmis et
-                  l&apos;invention qui le réactualise sans le trahir. Derrière deux enseignes, c&apos;est la même exigence
-                  qui préside&nbsp;: le respect des matières vivantes, le tempérament d&apos;hôte, et ce feu tranquille qui
-                  pousse une signature à chercher délicatesse jusque sous la feuille.
-                </p>
-              </div>
-
-              <div className="mx-auto mt-14 max-w-5xl border-t border-green/22 pt-12 md:grid md:grid-cols-2 md:gap-14 lg:gap-20">
-                <motion.article
-                  className="text-center md:border-r md:border-green/14 md:pr-10 md:text-left"
-                  initial={{ opacity: 0, y: 16 }}
+            <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-6 md:mt-14 md:grid-cols-3 md:gap-5 lg:gap-6">
+              {maisonCards.map((maison, index) => (
+                <motion.div
+                  key={maison.name}
+                  className="flex h-full min-w-0 flex-col"
+                  initial={{ opacity: 0, y: 22 }}
                   animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.18 }}
+                  transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.14 + index * 0.08 }}
                 >
-                  <h3 className="font-jost text-[10px] font-semibold uppercase tracking-[0.32em] text-green">
-                    Azur Fleurot · Nice
-                  </h3>
-                  <p className="mt-3 font-cormorant text-[0.92rem] font-light italic text-neutral-600 md:text-[0.96rem]">
-                    Maison fleuriste signature&nbsp;&mdash; née en&nbsp;2024
-                  </p>
-                  <p className="mt-5 text-[15px] font-light leading-[1.82] md:text-[16px]">
-                    Au cœur du Vieux-Nice, où la ville se resserre autour de la place de l&apos;Ancien Sénat,&nbsp;
-                    <span className="text-neutral-900">Azur Fleurot</span> est sa création la plus récente&nbsp;: une
-                    maison d&apos;où parlent couleurs tranchées et lignes contemporaines, où le sel de la Riviera se fait
-                    composition avant d&apos;être ornement. C&apos;est ici que se déploie avec le plus de franchise
-                    sa voix la plus neuve&nbsp;&mdash; celle qui ose inventer tout en gardant la main fleuriste.
-                  </p>
-                </motion.article>
-
-                <motion.article
-                  className="mt-14 text-center md:mt-0 md:text-left"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.28 }}
-                >
-                  <h3 className="font-jost text-[10px] font-semibold uppercase tracking-[0.32em] text-green">
-                    Lady Camélia · Vichy
-                  </h3>
-                  <p className="mt-3 font-cormorant text-[0.92rem] font-light italic text-neutral-600 md:text-[0.96rem]">
-                    Ancrage historique depuis&nbsp;2011
-                  </p>
-                  <p className="mt-5 text-[15px] font-light leading-[1.82] md:text-[16px]">
-                    <span className="text-neutral-900">Lady Camélia</span> est le socle sur lequel s&apos;est construit
-                    son parcours&nbsp;: le pôle où l&apos;événementiel de prestige trouve sa pleine mesure, où les
-                    mariages d&apos;exception et les grandes réceptions prennent corps avec la même attention qu&apos;un
-                    intérieur de maison. Hôtels, scènes de réception, jardins du patrimoine&nbsp;: autant de théâtres où
-                    le fleuriste devient metteur en scène du lieu, au rythme patient d&apos;un artisan qui a choisi le
-                    temps long.
-                  </p>
-                </motion.article>
-              </div>
-            </motion.div>
+                  <MaisonCardLink maison={maison} />
+                </motion.div>
+              ))}
+            </div>
           </RevealWrapper>
         </SectionContainer>
       </section>
@@ -1079,6 +1112,32 @@ export default function Home() {
                   className="lux-link text-[15px] text-blush underline-offset-4 transition hover:text-blush"
                 >
                   bouilholart@gmail.com
+                </a>
+              </motion.div>
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.8, ease: easeOutExpo }}
+              >
+                <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
+                  WhatsApp
+                </p>
+                <a
+                  href="https://wa.me/33664062422"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mx-auto inline-flex w-full max-w-sm items-center justify-center gap-2.5 rounded-sm border border-cream/20 bg-cream/[0.04] px-4 py-3 font-jost text-[15px] font-light tracking-[0.02em] text-cream/90 transition-[color,background-color,border-color] duration-300 ease-out hover:border-cream/35 hover:bg-cream/[0.08] hover:text-cream"
+                >
+                  <svg
+                    className="h-[18px] w-[18px] shrink-0 text-cream/85"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.123 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.883 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+                    />
+                  </svg>
+                  <span>Discutons sur WhatsApp</span>
                 </a>
               </motion.div>
             </motion.div>
