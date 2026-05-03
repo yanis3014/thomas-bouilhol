@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "Thomas Bouilhol — Maître Fleuriste · Maître Artisan d'Art",
   description:
     "Double titre unique en France. Art floral d'exception sur la Côte d'Azur. Hôtel Negresco, Monaco, Côte d'Azur.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml", sizes: "any" }],
+  },
 };
 
 export default function RootLayout({

@@ -5,10 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { href: "#artisan", label: "L'Artisan" },
-  { href: "#portrait", label: "Portrait" },
+  { href: "#", label: "Accueil" },
+  { href: "#parcours", label: "Parcours" },
   { href: "#creations", label: "Créations" },
-  { href: "#maisons", label: "Maisons" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -26,7 +25,9 @@ export function Navbar() {
   return (
     <motion.header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "scrolled bg-background/90 backdrop-blur" : "bg-gradient-to-b from-background/40 to-transparent"
+        scrolled
+          ? "bg-background/35 backdrop-blur-md"
+          : "bg-gradient-to-b from-background/35 to-transparent"
       }`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -44,7 +45,7 @@ export function Navbar() {
         <div className="hidden items-center gap-8 md:flex">
           {navItems.map((item, index) => (
             <motion.div
-              key={item.href}
+              key={`${item.href}-${item.label}`}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.7 + index * 0.08 }}
@@ -77,13 +78,13 @@ export function Navbar() {
         </button>
       </nav>
       {mobileOpen ? (
-        <div className="border-t border-green/20 bg-background/95 px-6 py-6 backdrop-blur md:hidden">
+        <div className="border-t border-green/15 bg-background/45 px-6 py-6 backdrop-blur-md md:hidden">
           <div className="flex flex-col gap-5">
             {navItems.map((item) => (
               <Link
-                key={item.href}
+                key={`${item.href}-${item.label}`}
                 href={item.href}
-                className="lux-link py-2 font-jost text-sm uppercase tracking-[0.2em] text-cream/75 transition hover:text-blush"
+                className="lux-link py-2 font-jost text-sm uppercase tracking-[0.22em] text-cream/85 transition hover:text-blush"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}

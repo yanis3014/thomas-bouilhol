@@ -1,7 +1,6 @@
  "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
@@ -10,36 +9,112 @@ import { SectionContainer } from "@/components/SectionContainer";
 
 const gallery = [
   {
-    src: "/conception/lieu-culte.png",
-    alt: "Composition florale luxueuse lieu de culte",
-    caption: "Décoration d'autel",
+    src: "/photos/amenagement-ceremonie.jpg",
+    alt: "Grande décoration florale pour lieu de cérémonie, volume structuré et tons clairs",
+    caption: "Décoration de cérémonie",
   },
   {
-    src: "/conception/cathedrale.png",
-    alt: "Bouquet cathedrale",
-    caption: "Mariage en cathédrale",
+    src: "/photos/amenagement-mariage.jpg",
+    alt: "Scénographie florale de mariage avec volumes généreux et chemin d’accueil fleuri",
+    caption: "Aménagement mariage",
   },
   {
-    src: "/conception/mariage.png",
-    alt: "composition florale mariage ",
-    caption: "Cérémonie nuptiale",
+    src: "/photos/amenagement-table-mariage.jpg",
+    alt: "Tables de réception ornées de centres de table et vaisselle florale raffinée",
+    caption: "Réception · tables fleuries",
   },
   {
-    src: "/conception/mariage-bouquet.png",
-    alt: "Décoration florale d'exception pour réception privée mariage ",
-    caption: "Réception florale couture",
+    src: "/photos/amenagement-jardin.jpg",
+    alt: "Aménagement floral en extérieur, massifs et lignes végétales dans un jardin",
+    caption: "Jardin · paysage floral",
   },
   {
-    src: "/conception/jardin.png",
-    alt: "Détails de fleurs délicates à l'élégance couture",
-    caption: "Jardin patrimonial",
+    src: "/photos/amenagement-interieur-luxe.jpg",
+    alt: "Composition d’intérieur haut de gamme avec fleurs et cache-pots dans un salon luxueux",
+    caption: "Intérieur d’exception",
   },
   {
-    src: "/conception/bouquet-rond.png",
-    alt: "Bouquet raffiné au style artistique intemporel",
-    caption: "Bouquet signature",
+    src: "/photos/amenagmement-terasse-dubai.jpg",
+    alt: "Aménagement floral de terrasse élégante sous ciel lumineux, style résidentiel prestige",
+    caption: "Terrasse · Dubaï",
+  },
+  {
+    src: "/photos/bouquet-mariage.jpg",
+    alt: "Bouquet de mariée généreux, association de fleurs et de feuillages",
+    caption: "Bouquet mariage",
+  },
+  {
+    src: "/photos/composition-florale-blanche.jpg",
+    alt: "Composition florale monochrome blanche, textures douces et lignes aériennes",
+    caption: "Composition monochrome",
+  },
+  {
+    src: "/photos/decoration-florale.jpg",
+    alt: "Décoration florale événementielle avec panache de couleurs et matières naturelles",
+    caption: "Décoration événementielle",
+  },
+  {
+    src: "/photos/grand-vase-fleurs-luxe.jpg",
+    alt: "Grand vase sculptural rempli d’une création florale haute et spectaculaire",
+    caption: "Grand vase · pièce maîtresse",
+  },
+  {
+    src: "/photos/bouquet-dessange-paris.jpg",
+    alt: "Bouquet raffiné créé pour une collaboration avec la Maison Jacques Dessange à Paris",
+    caption: "Jacques Dessange · Paris",
+  },
+  {
+    src: "/photos/decoration-maison-interieur.jpg",
+    alt: "Ambiance botanique dans un intérieur résidentiel avec bouquet et plantes d’appoint",
+    caption: "Décoration maison",
   },
 ];
+
+const parcoursSteps: { period: string; primary: string; secondary?: string }[] = [
+  { period: "2024", primary: "Création d'Azur Fleurot · Nice" },
+  {
+    period: "2024",
+    primary: "Direction de Lady Camélia · Vichy",
+    secondary: "Événementiel, mariages, deuils, hôtels",
+  },
+  {
+    period: "Déc. 2023",
+    primary: "Décoration de la maison mère de l'Institut Paul Bocuse · Lyon",
+  },
+  {
+    period: "2020–2022",
+    primary: "Maison Perles Oasis · Dubaï",
+    secondary: "Fleurs, événements, hôtels, parcs et jardins",
+  },
+  {
+    period: "2013–2020",
+    primary: "Fleurissement des grandes boutiques de luxe",
+    secondary: "Cartier, L'Oréal, Chantal Thomass, Ladurée…",
+  },
+  {
+    period: "1994 · 2001",
+    primary: "Racines au Puy-en-Velay",
+    secondary: "Stage fondateur chez La Digitale, puis ouverture de la boutique Arcade",
+  },
+];
+
+const trustInstitutionalRefs: string[] = [
+  "Institut Paul Bocuse · Lyon",
+  "Cathédrale Notre-Dame du Puy-en-Velay",
+  "Rallye Paris-Dakar · Le Puy-en-Velay",
+  "Rotary International · Vichy",
+];
+
+const trustLuxuryBrands: string[] = [
+  "Cartier",
+  "L'Oréal",
+  "Ladurée",
+  "Jacques Dessange",
+  "Chantal Thomass",
+];
+
+const DEVINCI_MOTTO =
+  "Là où l'esprit ne travaille pas avec la main, il n'y a pas d'art.";
 
 function DecorativeLine({ className = "" }: { className?: string }) {
   return (
@@ -49,40 +124,22 @@ function DecorativeLine({ className = "" }: { className?: string }) {
   );
 }
 
-type MaisonPreview = {
-  name: string;
-  address: string;
-  tag: string;
-  previewRoute: string;
-};
+function frenchMobileTelHref(display: string) {
+  const digits = display.replace(/\D/g, "");
+  if (digits.startsWith("0")) {
+    return `tel:+33${digits.slice(1)}`;
+  }
+  return `tel:${digits}`;
+}
 
 export default function Home() {
   const easeOutExpo = [0.22, 1, 0.36, 1] as const;
-  const maisons: MaisonPreview[] = [
-    {
-      name: "Azur Fleurot · Nice",
-      address: "5 Place de l'Ancien Sénat, 06300 Nice",
-      tag: "MAISON FLEURISTE",
-      previewRoute: "/preview/azur-fleurot",
-    },
-    {
-      name: "Lady Camélia · Vichy",
-      address: "20 Rue de Paris, 03200 Vichy",
-      tag: "MAISON HISTORIQUE DEPUIS 1987",
-      previewRoute: "/preview/evenementiel",
-    },
-    {
-      name: "Thomas Bouilhol · Café Floral",
-      address: "5 Rue de l'Ancien Sénat, 06300 Nice",
-      tag: "ART FLORAL & CAFÉ",
-      previewRoute: "/preview/cafe-floral",
-    },
-  ];
   const distinctionsRef = useRef<HTMLElement | null>(null);
   const distinctionsDecorRef = useRef<HTMLDivElement | null>(null);
   const citationRef = useRef<HTMLElement | null>(null);
   const portraitRef = useRef<HTMLElement | null>(null);
   const portraitDecorRef = useRef<HTMLDivElement | null>(null);
+  const parcoursRef = useRef<HTMLElement | null>(null);
   const trustRef = useRef<HTMLElement | null>(null);
   const creationsRef = useRef<HTMLElement | null>(null);
   const maisonsRef = useRef<HTMLElement | null>(null);
@@ -98,6 +155,7 @@ export default function Home() {
   const contactInView = useInView(contactRef, { once: true });
   const portraitInView = useInView(portraitRef, { once: true });
   const portraitDecorInView = useInView(portraitDecorRef, { once: false, margin: "-100px" });
+  const parcoursInView = useInView(parcoursRef, { once: true, margin: "-60px" });
   const contactDecorInView = useInView(contactDecorRef, { once: false, margin: "-100px" });
 
   const { scrollYProgress: portraitScrollProgress } = useScroll({
@@ -106,9 +164,7 @@ export default function Home() {
   });
   const portraitQuoteY = useTransform(portraitScrollProgress, [0, 1], [30, -30]);
 
-  const citationWords = "Là où l'esprit ne travaille pas avec la main,"
-    .split(" ")
-    .concat("il n'y a pas d'art.".split(" "));
+  const citationWords = DEVINCI_MOTTO.split(/\s+/);
 
   return (
     <main className="overflow-x-hidden bg-cream">
@@ -122,11 +178,11 @@ export default function Home() {
           transition={{ duration: 1.4, ease: easeOutExpo, delay: 0.3 }}
         >
           <Image
-            src="/thomas-hero.jpg"
-            alt="Thomas Bouilhol, Maître Fleuriste, en création florale"
+            src="/images/thomas-bouilhol-hero.png"
+            alt="Portrait professionnel de Thomas Bouilhol, Maître Fleuriste et Maître Artisan d'Art, en tenue sobre"
             fill
             priority
-            className="object-cover object-[center_15%] brightness-105 contrast-105 md:object-[center_top]"
+            className="object-cover object-[center_22%] brightness-105 contrast-105 md:object-[center_18%]"
           />
           <div
             className="absolute inset-0 hidden md:block"
@@ -219,12 +275,12 @@ export default function Home() {
               </motion.span>
             </h1>
             <motion.p
-              className="mt-5 font-cormorant text-[clamp(1.1rem,2.2vw,1.6rem)] italic text-blush"
+              className="mx-auto mt-5 max-w-lg px-4 font-cormorant text-xs italic leading-snug text-blush sm:text-sm"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: easeOutExpo, delay: 1.6 }}
             >
-              Idéateur végétal
+              Le seul en France à être titré de deux titres de Maître.
             </motion.p>
             <motion.div
               className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4"
@@ -251,11 +307,24 @@ export default function Home() {
                 Maître Artisan d&apos;Art
               </motion.span>
             </motion.div>
+            <motion.figure
+              className="mx-auto mt-7 max-w-lg px-4 text-center"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: easeOutExpo, delay: 1.82 }}
+            >
+              <blockquote className="font-cormorant text-base italic leading-snug text-cream/78 md:text-[1.05rem]">
+                «&nbsp;{DEVINCI_MOTTO}&nbsp;»
+              </blockquote>
+              <figcaption className="mt-3 font-jost text-[9px] uppercase tracking-[0.32em] text-blush/65">
+                Léonard de Vinci
+              </figcaption>
+            </motion.figure>
             <motion.p
               className="mx-auto mt-6 max-w-sm font-cormorant text-lg italic text-blush/80"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, ease: easeOutExpo, delay: 2 }}
+              transition={{ duration: 1.2, ease: easeOutExpo, delay: 2.15 }}
             >
               L&apos;unique fleuriste en France à réunir ces deux distinctions.
             </motion.p>
@@ -326,9 +395,20 @@ export default function Home() {
               <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-blush/80">
                 Première distinction
               </p>
-              <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-background">
-                {"Maître\nFleuriste"}
-              </h3>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+                <h3 className="font-cormorant text-[clamp(2rem,4vw,3.25rem)] font-light leading-tight text-background">
+                  Maître Fleuriste
+                </h3>
+                <span
+                  className="shrink-0 font-cormorant text-[clamp(2.75rem,10vw,4.75rem)] font-light leading-none tabular-nums text-green sm:translate-y-1"
+                  aria-label="Année 2012"
+                >
+                  2012
+                </span>
+              </div>
+              <p className="mt-4 max-w-xl font-jost text-[11px] leading-relaxed tracking-wide text-background/65">
+                Chambre de Métiers et de l&apos;Artisanat — Région Auvergne
+              </p>
               <motion.div
                 className="relative my-7 h-px w-12 bg-green/45"
                 initial={{ scaleX: 0, originX: 0 }}
@@ -358,11 +438,25 @@ export default function Home() {
               <p className="font-jost text-[10px] uppercase tracking-[0.45em] text-blush/80">
                 Deuxième distinction
               </p>
-              <h3 className="mt-6 whitespace-pre-line font-cormorant text-[clamp(2rem,4vw,3.8rem)] font-light leading-tight text-background">
-                {"Maître Artisan\nd\u2019Art"}
-              </h3>
-              <p className="mt-4 font-jost text-[9px] uppercase tracking-[0.25em] text-blush/80">
-                Parcs &amp; Jardins du Patrimoine
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+                <h3 className="font-cormorant text-[clamp(2rem,4vw,3.25rem)] font-light leading-tight text-background">
+                  Maître Artisan d&apos;Art
+                </h3>
+                <span
+                  className="shrink-0 font-cormorant text-[clamp(2.75rem,10vw,4.75rem)] font-light leading-none tabular-nums text-green sm:translate-y-1"
+                  aria-label="Année 2024"
+                >
+                  2024
+                </span>
+              </div>
+              <p className="mt-4 font-cormorant text-lg italic text-background/75">
+                Parcs et Jardins du Patrimoine
+              </p>
+              <p className="mt-3 max-w-xl font-jost text-[11px] leading-relaxed tracking-wide text-background/65">
+                Chambre de Métiers et de l&apos;Artisanat — Région Sud · Provence-Alpes-Côte d&apos;Azur
+              </p>
+              <p className="mt-3 max-w-xl font-jost text-[11px] leading-relaxed text-background/55">
+                Appellation Artisan d&apos;Art — 2024, même organisme.
               </p>
               <motion.div
                 className="relative my-7 h-px w-12 bg-green/45"
@@ -551,61 +645,194 @@ export default function Home() {
         </SectionContainer>
       </section>
 
-      <section ref={trustRef} className="relative isolate bg-background py-24 md:py-28">
+      <section
+        id="parcours"
+        ref={parcoursRef}
+        className="relative isolate border-t border-green/20 bg-[#E8E4DC] py-20 text-neutral-900 md:py-28"
+      >
         <SectionContainer>
-          <RevealWrapper>
+          <RevealWrapper className="mx-auto max-w-xl md:max-w-2xl">
             <motion.h2
-              className="text-center font-cormorant text-5xl italic text-cream"
-              initial={{ opacity: 0, y: 40 }}
+              className="font-cormorant text-[clamp(2rem,5vw,3rem)] font-light leading-tight text-neutral-950"
+              initial={{ opacity: 0, y: 20 }}
+              animate={parcoursInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, ease: easeOutExpo }}
+            >
+              Parcours
+            </motion.h2>
+            <motion.p
+              className="mt-3 font-jost text-[11px] uppercase tracking-[0.22em] text-neutral-600"
+              initial={{ opacity: 0 }}
+              animate={parcoursInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.08 }}
+            >
+              Quelques jalons majeurs · du plus récent au plus ancien
+            </motion.p>
+            <div className="relative mt-12 md:mt-14">
+              <div
+                className="pointer-events-none absolute bottom-4 left-[11px] top-1 w-[3px] -translate-x-1/2 rounded-full bg-green md:left-3"
+                aria-hidden="true"
+              />
+              <motion.ul
+                className="relative space-y-12 md:space-y-14"
+                initial="hidden"
+                animate={parcoursInView ? "show" : "hidden"}
+                variants={{
+                  hidden: {},
+                  show: {
+                    transition: { staggerChildren: 0.1, delayChildren: 0.18 },
+                  },
+                }}
+              >
+                {parcoursSteps.map((step, i) => (
+                  <motion.li
+                    key={`${step.period}-${step.primary}-${i}`}
+                    className="relative grid grid-cols-[22px_minmax(0,1fr)] items-start gap-x-6 md:grid-cols-[24px_minmax(0,1fr)] md:gap-x-8"
+                    variants={{
+                      hidden: { opacity: 0, x: 28 },
+                      show: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.55, ease: easeOutExpo },
+                      },
+                    }}
+                  >
+                    <div className="relative z-[2] flex justify-center pt-[0.32rem] md:pt-1.5">
+                      <motion.span
+                        className="size-3.5 shrink-0 rounded-full border-[2px] border-green bg-[#F6F4ED] shadow-[0_0_0_3px_#E8E4DC]"
+                        aria-hidden="true"
+                        variants={{
+                          hidden: { scale: 0, opacity: 0 },
+                          show: {
+                            scale: 1,
+                            opacity: 1,
+                            transition: {
+                              type: "spring",
+                              stiffness: 420,
+                              damping: 26,
+                              delay: 0.04,
+                            },
+                          },
+                        }}
+                      />
+                    </div>
+                    <div className="min-w-0 md:max-w-xl">
+                      <p className="font-jost text-sm font-semibold tabular-nums leading-normal text-green md:text-[15px] md:leading-normal">
+                        {step.period}
+                      </p>
+                      <p className="mt-2.5 text-[16px] leading-[1.72] text-neutral-800 md:text-[17px] md:leading-[1.74]">
+                        {step.primary}
+                      </p>
+                      {step.secondary ? (
+                        <p className="mt-2 text-[14px] leading-[1.7] text-neutral-600 md:text-[15px]">
+                          {step.secondary}
+                        </p>
+                      ) : null}
+                    </div>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </div>
+            <motion.p
+              className="mx-auto mt-14 max-w-md text-center text-[13px] leading-relaxed text-neutral-600 md:mt-16"
+              initial={{ opacity: 0 }}
+              animate={parcoursInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.35 }}
+            >
+              D&apos;autres expériences complètent ce parcours et peuvent être détaillées sur demande.
+            </motion.p>
+          </RevealWrapper>
+
+          <motion.figure
+            className="mx-auto mt-16 max-w-[min(100%,38rem)] px-4 text-center text-neutral-900 md:mt-20 md:max-w-[44rem]"
+            initial={{ opacity: 0, y: 28 }}
+            animate={parcoursInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: easeOutExpo, delay: 0.25 }}
+          >
+            <div className="mx-auto mb-10 h-px w-12 bg-green/45" aria-hidden="true" />
+            <blockquote className="font-cormorant text-[clamp(1.45rem,4.2vw,2.85rem)] font-light italic leading-snug text-neutral-950">
+              «&nbsp;{DEVINCI_MOTTO}&nbsp;»
+            </blockquote>
+            <figcaption className="mt-9 space-y-4">
+              <p className="font-jost text-[10px] uppercase tracking-[0.32em] text-[#8a734f]">
+                Léonard de Vinci
+              </p>
+              <p className="font-cormorant text-sm italic leading-relaxed text-neutral-600">
+                Devise personnelle de Thomas Bouilhol, mentionnée dans son CV.
+              </p>
+            </figcaption>
+          </motion.figure>
+        </SectionContainer>
+      </section>
+
+      <section ref={trustRef} className="relative isolate overflow-hidden bg-background py-[4.5rem] md:py-[5.25rem]">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,rgba(201,169,138,0.06)_0%,transparent_60%)]"
+          aria-hidden="true"
+        />
+
+        <SectionContainer className="relative">
+          <RevealWrapper className="mx-auto max-w-xl text-center md:max-w-2xl">
+            <motion.h2
+              className="font-cormorant text-[clamp(2.25rem,5vw,3.35rem)] font-light italic leading-tight tracking-[0.02em] text-cream"
+              initial={{ opacity: 0, y: 26 }}
               animate={trustInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, ease: easeOutExpo }}
             >
               Ils lui font confiance
             </motion.h2>
-            <p className="mt-5 text-center font-jost text-xs uppercase tracking-[0.25em] text-cream">
-              Palaces · Institutions · Événements privés
-            </p>
-            <div className="mx-auto mt-12 flex max-w-5xl flex-col items-center justify-center gap-5 text-center md:flex-row md:gap-8">
-              <motion.p
-                className="text-sm uppercase tracking-[0.3em] text-blush/85"
-                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-                animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.1 }}
-              >
-                Hôtel Negresco · Nice
-              </motion.p>
-              <motion.span
-                className="hidden h-7 w-px bg-green/35 md:block"
-                initial={{ scaleY: 0 }}
-                animate={trustInView ? { scaleY: 1 } : {}}
-                transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.3 }}
-              />
-              <motion.p
-                className="text-sm uppercase tracking-[0.3em] text-blush/85"
-                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-                animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.3 }}
-              >
-                Principauté de Monaco
-              </motion.p>
-              <motion.span
-                className="hidden h-7 w-px bg-green/35 md:block"
-                initial={{ scaleY: 0 }}
-                animate={trustInView ? { scaleY: 1 } : {}}
-                transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.5 }}
-              />
-              <motion.p
-                className="text-sm uppercase tracking-[0.3em] text-blush/85"
-                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-                animate={trustInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.5 }}
-              >
-                Parcs &amp; Jardins du Patrimoine
-              </motion.p>
-            </div>
-            <p className="mt-10 text-center text-sm italic text-muted">
-              Et de nombreux particuliers, familles et domaines privés de la Côte d&apos;Azur.
-            </p>
+            <motion.div
+              className="mx-auto mt-7 h-px w-14 bg-green/35"
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={trustInView ? { opacity: 1, scaleX: 1 } : {}}
+              transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.08 }}
+              aria-hidden="true"
+            />
+
+            <motion.div
+              className="mt-14 space-y-3"
+              initial={{ opacity: 0, y: 14 }}
+              animate={trustInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, ease: easeOutExpo, delay: 0.12 }}
+            >
+              <p className="font-jost text-[10px] uppercase tracking-[0.28em] text-blush/[0.7]">
+                Quelques repères marquants
+              </p>
+              <ul className="mx-auto mt-8 max-w-md space-y-7 text-[16px] leading-[1.7] text-cream/[0.78] md:text-[17px] md:leading-[1.75]">
+                {trustInstitutionalRefs.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div
+              className="mx-auto mt-16 max-w-lg border-t border-green/15 pt-14"
+              initial={{ opacity: 0, y: 14 }}
+              animate={trustInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, ease: easeOutExpo, delay: 0.18 }}
+            >
+              <p className="font-jost text-[10px] uppercase tracking-[0.28em] text-blush/[0.7]">Luxe partenaire</p>
+              <p className="mx-auto mt-8 text-[17px] font-light leading-[1.85] tracking-[0.01em] text-cream/[0.8] md:text-[18px]">
+                {trustLuxuryBrands.join(" · ")}
+              </p>
+              <p className="mx-auto mt-6 max-w-sm text-[13px] leading-relaxed text-cream/[0.42] md:text-[14px]">
+                … et autres maisons françaises &amp; internationales.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="relative mx-auto mt-14 rounded-sm border border-blush/[0.18] bg-cream/[0.025] px-8 py-6 text-center md:mt-16"
+              initial={{ opacity: 0 }}
+              animate={trustInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.24 }}
+            >
+              <p className="font-cormorant text-[1.1rem] italic leading-snug text-blush/[0.92] md:text-[1.2rem]">
+                Maison Fiol · Nice
+              </p>
+              <p className="mt-2 font-jost text-[10px] uppercase tracking-[0.26em] text-cream/[0.38]">
+                Prestataire actuel
+              </p>
+            </motion.div>
           </RevealWrapper>
         </SectionContainer>
       </section>
@@ -665,53 +892,98 @@ export default function Home() {
         </SectionContainer>
       </section>
 
-      <section id="maisons" ref={maisonsRef} className="relative isolate overflow-x-hidden bg-[#F5F0E8] py-20">
-        <SectionContainer>
+      <section
+        id="maisons"
+        ref={maisonsRef}
+        className="relative isolate overflow-hidden bg-[#F3EFE6] py-[4.5rem] md:py-[5.75rem]"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_50%_at_50%_0%,rgba(201,169,138,0.14)_0%,transparent_52%)]"
+          aria-hidden="true"
+        />
+        <SectionContainer className="relative">
           <RevealWrapper>
             <motion.h2
-              className="text-center font-cormorant text-4xl italic text-background"
+              className="text-center font-cormorant text-[clamp(2rem,4.5vw,3.35rem)] font-light italic tracking-[0.02em] text-neutral-950"
               initial={{ opacity: 0, y: 30 }}
               animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, ease: easeOutExpo }}
             >
               Un univers, plusieurs maisons
             </motion.h2>
-            <motion.p
-              className="mx-auto mt-5 max-w-2xl text-center text-sm text-muted"
-              initial={{ opacity: 0, y: 30 }}
+            <motion.div
+              className="mx-auto mt-7 h-px w-16 bg-gradient-to-r from-transparent via-green/35 to-transparent"
+              aria-hidden="true"
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={maisonsInView ? { opacity: 1, scaleX: 1 } : {}}
+              transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.08 }}
+            />
+            <motion.div
+              className="mx-auto mt-11 max-w-4xl text-neutral-700 md:mt-14"
+              initial={{ opacity: 0, y: 18 }}
               animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, ease: easeOutExpo, delay: 0.1 }}
             >
-              Thomas Bouilhol a fondé plusieurs établissements. Chacun reflète une facette de son
-              art.
-            </motion.p>
-            <div className="mt-8 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
-              {maisons.map((house, index) => (
+              <p className="text-center font-cormorant text-[1.2rem] font-light italic leading-snug tracking-[0.01em] text-neutral-900 md:text-[1.35rem] md:leading-snug">
+                Deux paysages,&nbsp;un même souffle&nbsp;: faire du végétal une langue d&apos;exception, entre la grande
+                lumière du sud et les jardins de mémoire.
+              </p>
+
+              <div className="mx-auto mt-10 max-w-2xl space-y-5 text-[15px] font-light leading-[1.82] md:mt-12 md:text-[16px]">
+                <p>
+                  Thomas Bouilhol déploie ainsi son métier comme un fil tendu entre la Côte d&apos;Azur et
+                  l&apos;Auvergne&nbsp;: pont délicat jeté entre héritage et modernité, entre le geste transmis et
+                  l&apos;invention qui le réactualise sans le trahir. Derrière deux enseignes, c&apos;est la même exigence
+                  qui préside&nbsp;: le respect des matières vivantes, le tempérament d&apos;hôte, et ce feu tranquille qui
+                  pousse une signature à chercher délicatesse jusque sous la feuille.
+                </p>
+              </div>
+
+              <div className="mx-auto mt-14 max-w-5xl border-t border-green/22 pt-12 md:grid md:grid-cols-2 md:gap-14 lg:gap-20">
                 <motion.article
-                  key={house.name}
-                  className="relative flex w-full items-start justify-between overflow-visible whitespace-normal border-t-2 border-green bg-[rgba(74,94,58,0.04)] px-10 py-8 text-left text-background transition duration-300 ease-out hover:bg-[rgba(74,94,58,0.09)]"
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={maisonsInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.2 }}
+                  className="text-center md:border-r md:border-green/14 md:pr-10 md:text-left"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.18 }}
                 >
-                  <div className="relative">
-                    <h3 className="whitespace-normal font-cormorant text-3xl text-background">{house.name}</h3>
-                    <p className="mt-2 text-sm text-muted">{house.address}</p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-blush">{house.tag}</p>
-                  </div>
-                  <motion.div whileHover={{ x: 6 }} transition={{ duration: 0.3, ease: "easeOut" }}>
-                    <Link
-                      href={house.previewRoute}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="lux-link text-2xl text-blush"
-                    >
-                      →
-                    </Link>
-                  </motion.div>
+                  <h3 className="font-jost text-[10px] font-semibold uppercase tracking-[0.32em] text-green">
+                    Azur Fleurot · Nice
+                  </h3>
+                  <p className="mt-3 font-cormorant text-[0.92rem] font-light italic text-neutral-600 md:text-[0.96rem]">
+                    Maison fleuriste signature&nbsp;&mdash; née en&nbsp;2024
+                  </p>
+                  <p className="mt-5 text-[15px] font-light leading-[1.82] md:text-[16px]">
+                    Au cœur du Vieux-Nice, où la ville se resserre autour de la place de l&apos;Ancien Sénat,&nbsp;
+                    <span className="text-neutral-900">Azur Fleurot</span> est sa création la plus récente&nbsp;: une
+                    maison d&apos;où parlent couleurs tranchées et lignes contemporaines, où le sel de la Riviera se fait
+                    composition avant d&apos;être ornement. C&apos;est ici que se déploie avec le plus de franchise
+                    sa voix la plus neuve&nbsp;&mdash; celle qui ose inventer tout en gardant la main fleuriste.
+                  </p>
                 </motion.article>
-              ))}
-            </div>
+
+                <motion.article
+                  className="mt-14 text-center md:mt-0 md:text-left"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.28 }}
+                >
+                  <h3 className="font-jost text-[10px] font-semibold uppercase tracking-[0.32em] text-green">
+                    Lady Camélia · Vichy
+                  </h3>
+                  <p className="mt-3 font-cormorant text-[0.92rem] font-light italic text-neutral-600 md:text-[0.96rem]">
+                    Ancrage historique depuis&nbsp;2011
+                  </p>
+                  <p className="mt-5 text-[15px] font-light leading-[1.82] md:text-[16px]">
+                    <span className="text-neutral-900">Lady Camélia</span> est le socle sur lequel s&apos;est construit
+                    son parcours&nbsp;: le pôle où l&apos;événementiel de prestige trouve sa pleine mesure, où les
+                    mariages d&apos;exception et les grandes réceptions prennent corps avec la même attention qu&apos;un
+                    intérieur de maison. Hôtels, scènes de réception, jardins du patrimoine&nbsp;: autant de théâtres où
+                    le fleuriste devient metteur en scène du lieu, au rythme patient d&apos;un artisan qui a choisi le
+                    temps long.
+                  </p>
+                </motion.article>
+              </div>
+            </motion.div>
           </RevealWrapper>
         </SectionContainer>
       </section>
@@ -772,10 +1044,13 @@ export default function Home() {
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
-                  Adresse
+                  Adresse principale
                 </p>
-                <p className="text-[15px]">5 Place de l&apos;Ancien Sénat</p>
-                <p className="text-[15px]">06300 Nice</p>
+                <p className="text-[15px] leading-snug">
+                  5 Place de l&apos;Ancien Sénat / 1 Rue Barillerie
+                  <br />
+                  06300 Nice
+                </p>
               </motion.div>
               <motion.div
                 variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
@@ -784,8 +1059,11 @@ export default function Home() {
                 <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
                   Téléphone
                 </p>
-                <a href="tel:+33664062422" className="lux-link text-[15px] transition hover:text-cream">
-                  +33 6 64 06 24 22
+                <a
+                  href={frenchMobileTelHref("06 64 06 24 22")}
+                  className="lux-link text-[15px] transition hover:text-cream"
+                >
+                  06 64 06 24 22
                 </a>
               </motion.div>
               <motion.div
@@ -796,10 +1074,10 @@ export default function Home() {
                   Email
                 </p>
                 <a
-                  href="mailto:contact@thomas-bouilhol.com"
+                  href="mailto:bouilholart@gmail.com"
                   className="lux-link text-[15px] text-blush underline-offset-4 transition hover:text-blush"
                 >
-                  contact@thomas-bouilhol.com
+                  bouilholart@gmail.com
                 </a>
               </motion.div>
             </motion.div>
