@@ -150,7 +150,7 @@ export default function Home() {
   const distinctionsDecorInView = useInView(distinctionsDecorRef, { once: false, margin: "-100px" });
   const citationInView = useInView(citationRef, { once: true, margin: "-80px" });
   const trustInView = useInView(trustRef, { once: true });
-  const creationsInView = useInView(creationsRef, { once: true, margin: "-50px" });
+  const creationsInView = useInView(creationsRef, { once: true, amount: 0.05 });
   const maisonsInView = useInView(maisonsRef, { once: true });
   const contactInView = useInView(contactRef, { once: true });
   const portraitInView = useInView(portraitRef, { once: true });
@@ -172,7 +172,7 @@ export default function Home() {
 
       <section className="relative isolate z-10 min-h-[100vh] max-w-[100vw] overflow-x-hidden overflow-y-hidden bg-background md:grid md:grid-cols-[45%_55%]">
         <motion.div
-          className="absolute inset-0 max-w-[100vw] overflow-hidden after:pointer-events-none after:absolute after:inset-0 after:z-[1] after:bg-[linear-gradient(to_top,rgba(10,10,8,0.85)_0%,rgba(10,10,8,0.4)_60%,transparent_100%)] md:relative md:inset-auto md:min-h-[100vh] md:after:hidden"
+          className="absolute inset-0 z-0 max-w-[100vw] min-h-[100vh] w-full overflow-hidden after:pointer-events-none after:absolute after:inset-0 after:z-[1] after:bg-[linear-gradient(to_top,rgba(10,10,8,0.85)_0%,rgba(10,10,8,0.4)_60%,transparent_100%)] md:relative md:inset-auto md:min-h-[100vh] md:after:hidden"
           initial={{ clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
           transition={{ duration: 1.4, ease: easeOutExpo, delay: 0.3 }}
@@ -182,6 +182,7 @@ export default function Home() {
             alt="Portrait professionnel de Thomas Bouilhol, Maître Fleuriste et Maître Artisan d'Art, en tenue sobre"
             fill
             priority
+            sizes="100vw"
             className="object-cover object-[center_22%] brightness-105 contrast-105 md:object-[center_18%]"
           />
           <div
@@ -862,23 +863,23 @@ export default function Home() {
               Compositions · Mariages · Jardins · Réceptions
             </p>
 
-            <div className="mt-12 columns-1 [column-gap:1.5rem] md:columns-3">
+            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {gallery.map((item, index) => (
                 <motion.article
                   key={item.src}
-                  className="group mb-6 break-inside-avoid"
-                  style={{ breakInside: "avoid" }}
+                  className="group min-w-0"
                   initial={{ opacity: 0, y: 40, scale: 0.96 }}
                   animate={creationsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
                   transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.12 }}
                 >
-                  <div className="relative overflow-hidden rounded-[4px] border border-transparent transition-all duration-[450ms] ease-out group-hover:border-green">
+                  <div className="relative w-full overflow-hidden rounded-[4px] border border-transparent transition-all duration-[450ms] ease-out group-hover:border-green">
                     <Image
                       src={item.src}
                       alt={item.alt}
                       width={1600}
                       height={2200}
-                      className="h-auto w-full object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.04]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="h-auto w-full max-w-full object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.04]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-[rgba(245,240,232,0)] transition-colors duration-[450ms] ease-out group-hover:bg-[rgba(245,240,232,0.08)]" />
                   </div>

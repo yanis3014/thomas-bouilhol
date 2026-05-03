@@ -25,7 +25,8 @@ export function RevealWrapper({ children, className }: RevealWrapperProps) {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      /* 0.2 imposait 20 % du bloc visible — impossible pour une section très haute sur petit écran. */
+      { threshold: 0, rootMargin: "0px 0px 12% 0px" }
     );
 
     observer.observe(element);
