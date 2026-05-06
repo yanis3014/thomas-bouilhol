@@ -19,6 +19,11 @@ const gallery = [
     caption: "Aménagement mariage",
   },
   {
+    src: "/monaco/cathedrale-monaco.jpg",
+    alt: "Fleurissement et aménagement floral à la cathédrale Notre-Dame-Immaculée de Monaco",
+    caption: "Cathédrale de Monaco",
+  },
+  {
     src: "/photos/amenagement-table-mariage.jpg",
     alt: "Tables de réception ornées de centres de table et vaisselle florale raffinée",
     caption: "Réception · tables fleuries",
@@ -34,6 +39,11 @@ const gallery = [
     caption: "Intérieur d’exception",
   },
   {
+    src: "/monaco/cathedrale-monaco-amenagement.jpg",
+    alt: "Aménagement végétal et compositions florales pour un lieu de culte à Monaco",
+    caption: "Cathédrale de Monaco · aménagement",
+  },
+  {
     src: "/photos/amenagmement-terasse-dubai.jpg",
     alt: "Aménagement floral de terrasse élégante sous ciel lumineux, style résidentiel prestige",
     caption: "Terrasse · Dubaï",
@@ -42,6 +52,11 @@ const gallery = [
     src: "/photos/bouquet-mariage.jpg",
     alt: "Bouquet de mariée généreux, association de fleurs et de feuillages",
     caption: "Bouquet mariage",
+  },
+  {
+    src: "/monaco/cathedrale-monaco-2.jpg",
+    alt: "Vue d’ensemble de la décoration florale à l’intérieur de la cathédrale de Monaco",
+    caption: "Cathédrale de Monaco · ensemble",
   },
   {
     src: "/photos/composition-florale-blanche.jpg",
@@ -57,6 +72,11 @@ const gallery = [
     src: "/photos/grand-vase-fleurs-luxe.jpg",
     alt: "Grand vase sculptural rempli d’une création florale haute et spectaculaire",
     caption: "Grand vase · pièce maîtresse",
+  },
+  {
+    src: "/monaco/cathedrale-monaco-statue.jpg",
+    alt: "Détail floral près d’une statue, cathédrale Notre-Dame-Immaculée de Monaco",
+    caption: "Cathédrale de Monaco · détail",
   },
   {
     src: "/photos/bouquet-dessange-paris.jpg",
@@ -81,31 +101,31 @@ type MaisonCardEntry = {
 
 const maisonCards: MaisonCardEntry[] = [
   {
-    badge: "MAISON FLEURISTE",
-    name: "Azur Fleurot",
+    badge: "PARCS ET JARDINS DU PATRIMOINE",
+    name: "SCI TMGL",
     description:
-      "La boutique phare de Nice. Créations florales sur-mesure pour mariages, réceptions et décoration d'intérieur.",
+      "Maître Artisan d'Art — Parcs et Jardins du Patrimoine. Conception et entretien de jardins d'exception.",
     city: "Nice",
-    address: "5 Place de l'Ancien Sénat, 06300 Nice",
-    background: "#1a1a1a",
+    address: "1 Rue Barillerie, 06300 Nice",
+    background: "#0f1f0f",
   },
   {
-    badge: "MAISON HISTORIQUE · DEPUIS 1987",
-    name: "Lady Camélia",
+    badge: "RESTAURATION",
+    name: "SARL Thomaga",
     description:
-      "Maison historique fondée en 1987. Le berceau du savoir-faire de Thomas Bouilhol, à Vichy.",
-    city: "Vichy",
-    address: "20 Rue de Paris, 03200 Vichy",
+      "Thomas Bouilhol Café Floral — un concept unique alliant art floral et restauration, au cœur de Nice.",
+    city: "Nice",
+    address: "5 Place de l'Ancien Sénat, 06300 Nice",
     background: "#2d0a0a",
   },
   {
-    badge: "ART FLORAL & CAFÉ",
-    name: "Thomas Bouilhol Café Floral",
+    badge: "MAISON FLEURISTE",
+    name: "SARL Azur Fleurot",
     description:
-      "Un concept unique : atelier d'art floral et café, réunis en un seul lieu à Nice.",
+      "La boutique florale phare. Créations sur-mesure pour mariages, réceptions et décoration d'intérieur.",
     city: "Nice",
-    address: "5 Rue de l'Ancien Sénat, 06300 Nice",
-    background: "#0f1f0f",
+    address: "1 Rue Barillerie, 06300 Nice",
+    background: "#1a1a1a",
   },
 ];
 
@@ -140,7 +160,7 @@ function MaisonCardLink({ maison }: { maison: MaisonCardEntry }) {
           </p>
         </div>
       </div>
-      <p className="pointer-events-none absolute bottom-6 right-6 z-[5] max-w-[13rem] text-right font-jost text-xs font-light leading-snug text-white/80 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+      <p className="pointer-events-none absolute bottom-6 right-6 z-[5] max-w-[13rem] text-right font-jost text-xs font-light leading-snug text-white/80">
         {maison.address}
       </p>
     </a>
@@ -178,16 +198,25 @@ const parcoursSteps: { period: string; primary: string; secondary?: string }[] =
 const trustInstitutionalRefs: string[] = [
   "Institut Paul Bocuse · Lyon",
   "Cathédrale Notre-Dame du Puy-en-Velay",
+  "Cathédrale Notre-Dame-Immaculée · Monaco",
+  "Le Negresco · Nice",
+  "Conciergerie · Paris",
+  "Grand Palais de Dakar",
   "Rallye Paris-Dakar · Le Puy-en-Velay",
   "Rotary International · Vichy",
+  "Musée du Jardin Henri-Vinay · Le Puy-en-Velay",
+  "Le Couvent · Nice",
 ];
 
 const trustLuxuryBrands: string[] = [
   "Cartier",
+  "Tiffany & Co.",
   "L'Oréal",
   "Ladurée",
   "Jacques Dessange",
   "Chantal Thomass",
+  "Anne et Valentin",
+  "Floriane Oriac",
 ];
 
 const DEVINCI_MOTTO =
@@ -642,11 +671,9 @@ export default function Home() {
                 animate={portraitInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 1.2, ease: easeOutExpo }}
               >
-                « Ce qui m&apos;intéresse,
-                <br />
-                c&apos;est d&apos;aller à l&apos;avant
-                <br />
-                de ce que je vis. »
+                «L'Art dans 
+                
+                L'Excellence. »
               </motion.blockquote>
               <motion.div
                 className="space-y-6 text-[15px] text-background/70"
@@ -718,6 +745,52 @@ export default function Home() {
                   </motion.p>
                 </motion.div>
               </motion.div>
+            </div>
+          </RevealWrapper>
+        </SectionContainer>
+      </section>
+
+      <section id="creations" ref={creationsRef} className="relative isolate bg-[#F5F0E8] px-4 py-20 md:px-16 md:py-32">
+        <SectionContainer>
+          <RevealWrapper>
+            <motion.h2
+              className="font-cormorant text-6xl italic text-secondary md:text-7xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={creationsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: easeOutExpo }}
+            >
+              Quelques créations
+            </motion.h2>
+            <div className="mt-4 h-px w-[60px] bg-green/60" />
+            <p className="mt-5 font-jost text-xs uppercase tracking-[0.24em] text-muted">
+              Compositions · Mariages · Jardins · Réceptions
+            </p>
+
+            <div className="mt-12 [column-count:1] [column-gap:1.5rem] sm:[column-count:2] lg:[column-count:3]">
+              {gallery.map((item, index) => (
+                <motion.article
+                  key={item.src}
+                  className="group mb-6 break-inside-avoid min-w-0"
+                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                  animate={creationsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                  transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.08 }}
+                >
+                  <div className="relative w-full overflow-hidden rounded-[4px] border border-transparent transition-all duration-[450ms] ease-out group-hover:border-green">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      width={1600}
+                      height={2200}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="h-auto w-full max-w-full object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.04]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-[rgba(245,240,232,0)] transition-colors duration-[450ms] ease-out group-hover:bg-[rgba(245,240,232,0.08)]" />
+                  </div>
+                  <p className="mt-2 translate-y-[6px] font-cormorant text-[0.85rem] italic text-[#6B6B5A] opacity-95 transition-all duration-[450ms] ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                    {item.caption}
+                  </p>
+                </motion.article>
+              ))}
             </div>
           </RevealWrapper>
         </SectionContainer>
@@ -836,7 +909,7 @@ export default function Home() {
                 Léonard de Vinci
               </p>
               <p className="font-cormorant text-sm italic leading-relaxed text-neutral-600">
-                Devise personnelle de Thomas Bouilhol, mentionnée dans son CV.
+                Devise personnelle de Thomas Bouilhol.
               </p>
             </figcaption>
           </motion.figure>
@@ -876,7 +949,7 @@ export default function Home() {
               <p className="font-jost text-[10px] uppercase tracking-[0.28em] text-blush/[0.7]">
                 Quelques repères marquants
               </p>
-              <ul className="mx-auto mt-8 max-w-md space-y-7 text-[16px] leading-[1.7] text-cream/[0.78] md:text-[17px] md:leading-[1.75]">
+              <ul className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-16 gap-y-7 text-center text-[16px] leading-[1.7] text-cream/[0.78] sm:grid-cols-2 md:text-[17px] md:leading-[1.75]">
                 {trustInstitutionalRefs.map((line) => (
                   <li key={line}>{line}</li>
                 ))}
@@ -890,9 +963,11 @@ export default function Home() {
               transition={{ duration: 0.75, ease: easeOutExpo, delay: 0.18 }}
             >
               <p className="font-jost text-[10px] uppercase tracking-[0.28em] text-blush/[0.7]">Luxe partenaire</p>
-              <p className="mx-auto mt-8 text-[17px] font-light leading-[1.85] tracking-[0.01em] text-cream/[0.8] md:text-[18px]">
-                {trustLuxuryBrands.join(" · ")}
-              </p>
+              <ul className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-x-16 gap-y-7 text-center text-[17px] font-light leading-[1.85] text-cream/[0.8] sm:grid-cols-2 md:text-[18px]">
+                {trustLuxuryBrands.map((brand) => (
+                  <li key={brand}>{brand}</li>
+                ))}
+              </ul>
               <p className="mx-auto mt-6 max-w-sm text-[13px] leading-relaxed text-cream/[0.42] md:text-[14px]">
                 … et autres maisons françaises &amp; internationales.
               </p>
@@ -923,52 +998,6 @@ export default function Home() {
           <path d="M70 176c20-2 36-12 46-30-20 2-36 12-46 30Z" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
         </svg>
       </div>
-
-      <section id="creations" ref={creationsRef} className="relative isolate bg-[#F5F0E8] px-4 py-20 md:px-16 md:py-32">
-        <SectionContainer>
-          <RevealWrapper>
-            <motion.h2
-              className="font-cormorant text-6xl italic text-secondary md:text-7xl"
-              initial={{ opacity: 0, y: 30 }}
-              animate={creationsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1, ease: easeOutExpo }}
-            >
-              Quelques créations
-            </motion.h2>
-            <div className="mt-4 h-px w-[60px] bg-green/60" />
-            <p className="mt-5 font-jost text-xs uppercase tracking-[0.24em] text-muted">
-              Compositions · Mariages · Jardins · Réceptions
-            </p>
-
-            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {gallery.map((item, index) => (
-                <motion.article
-                  key={item.src}
-                  className="group min-w-0"
-                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                  animate={creationsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                  transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.12 }}
-                >
-                  <div className="relative w-full overflow-hidden rounded-[4px] border border-transparent transition-all duration-[450ms] ease-out group-hover:border-green">
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      width={1600}
-                      height={2200}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="h-auto w-full max-w-full object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.04]"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-[rgba(245,240,232,0)] transition-colors duration-[450ms] ease-out group-hover:bg-[rgba(245,240,232,0.08)]" />
-                  </div>
-                  <p className="mt-2 translate-y-[6px] font-cormorant text-[0.85rem] italic text-[#6B6B5A] opacity-95 transition-all duration-[450ms] ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                    {item.caption}
-                  </p>
-                </motion.article>
-              ))}
-            </div>
-          </RevealWrapper>
-        </SectionContainer>
-      </section>
 
       <section
         id="maisons"
@@ -1166,6 +1195,58 @@ export default function Home() {
         <DecorativeLine className="mt-7 w-8" />
         <p className="mt-6 font-jost text-[9px] text-cream/30">© 2026 Thomas Bouilhol</p>
       </footer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "LocalBusiness",
+                "@id": "https://thomas-bouilhol.com/#business",
+                name: "Thomas Bouilhol — Maître Fleuriste",
+                description:
+                  "Maître Fleuriste et Maître Artisan d'Art, le seul fleuriste en France à détenir simultanément ces deux titres. Créations florales sur-mesure pour mariages, événements et décoration de prestige.",
+                url: "https://thomas-bouilhol.com",
+                telephone: "+33664062422",
+                email: "bouilholart@gmail.com",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "5 Place de l'Ancien Sénat",
+                  addressLocality: "Nice",
+                  postalCode: "06300",
+                  addressCountry: "FR",
+                },
+                geo: {
+                  "@type": "GeoCoordinates",
+                  latitude: 43.6961,
+                  longitude: 7.2719,
+                },
+                areaServed: ["Nice", "Côte d'Azur", "Monaco", "Vichy"],
+                priceRange: "€€€€",
+                image: "https://thomas-bouilhol.com/images/thomas-bouilhol-hero.png",
+              },
+              {
+                "@type": "Person",
+                "@id": "https://thomas-bouilhol.com/#person",
+                name: "Thomas Bouilhol",
+                jobTitle: "Maître Fleuriste · Maître Artisan d'Art",
+                worksFor: { "@id": "https://thomas-bouilhol.com/#business" },
+                award: [
+                  "Maître Fleuriste — Chambre de Métiers et de l'Artisanat, Région Auvergne, 2012",
+                  "Maître Artisan d'Art, Parcs et Jardins du Patrimoine — Chambre de Métiers et de l'Artisanat, Région Sud PACA, 2024",
+                ],
+                knowsAbout: [
+                  "Art floral",
+                  "Décoration florale de mariage",
+                  "Parcs et jardins du patrimoine",
+                  "Décoration d'intérieur florale",
+                ],
+              },
+            ],
+          }),
+        }}
+      />
     </main>
   );
 }
