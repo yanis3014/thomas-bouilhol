@@ -671,9 +671,9 @@ export default function Home() {
                 animate={portraitInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 1.2, ease: easeOutExpo }}
               >
-                «L'Art dans 
+                «L&apos;Art dans
                 
-                L'Excellence. »
+                L&apos;Excellence. »
               </motion.blockquote>
               <motion.div
                 className="space-y-6 text-[15px] text-background/70"
