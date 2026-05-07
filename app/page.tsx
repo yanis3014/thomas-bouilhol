@@ -119,7 +119,7 @@ const maisonCards: MaisonCardEntry[] = [
     badge: "RESTAURATION",
     name: "SARL Thomaga",
     description:
-      "Thomas Bouilhol Café Floral — un concept unique alliant restauration et art floral, au cœur de Nice.",
+      "Thomas Bouilhol Café Floral — un concept unique alliant restauration et Végetaux, au cœur du Vieux Nice.",
     city: "Nice",
     address: "5 Place de l'Ancien Sénat, 06300 Nice",
     background: "#2d0a0a",
@@ -228,7 +228,7 @@ const trustLuxuryBrands: string[] = [
   "Jacques Dessange",
   "Chantal Thomass",
   "Anne et Valentin",
-  "Floriane Oriac",
+  "Florinande  . Oriac",
 ];
 
 const DEVINCI_MOTTO =
