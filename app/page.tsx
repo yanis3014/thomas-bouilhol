@@ -1,7 +1,13 @@
- "use client";
+"use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { RevealWrapper } from "@/components/RevealWrapper";
@@ -113,7 +119,7 @@ const maisonCards: MaisonCardEntry[] = [
     badge: "RESTAURATION",
     name: "SARL Thomaga",
     description:
-      "Thomas Bouilhol Café Floral — un concept unique alliant art floral et restauration, au cœur de Nice.",
+      "Thomas Bouilhol Café Floral — un concept unique alliant restauration et art floral, au cœur de Nice.",
     city: "Nice",
     address: "5 Place de l'Ancien Sénat, 06300 Nice",
     background: "#2d0a0a",
@@ -141,14 +147,19 @@ function MaisonCardLink({ maison }: { maison: MaisonCardEntry }) {
         style={{ backgroundColor: maison.background }}
         aria-hidden="true"
       />
-      <div className="pointer-events-none absolute inset-0 z-[2] bg-black/60" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0 z-[2] bg-black/60"
+        aria-hidden="true"
+      />
       <div
         className="pointer-events-none absolute inset-0 z-[3] bg-transparent transition-colors duration-500 ease-out group-hover:bg-[rgba(0,0,0,0.15)]"
         aria-hidden="true"
       />
       <div className="relative z-[4] flex h-full min-h-[420px] flex-col justify-center px-6 py-6 text-center">
         <div className="mx-auto flex w-full min-w-0 max-w-md flex-col items-center">
-          <p className="font-jost text-xs tracking-widest text-white/50">{maison.badge}</p>
+          <p className="font-jost text-xs tracking-widest text-white/50">
+            {maison.badge}
+          </p>
           <h3 className="mt-4 font-cormorant text-2xl font-light leading-tight tracking-[0.02em] text-white drop-shadow-sm md:text-3xl">
             {maison.name}
           </h3>
@@ -167,33 +178,35 @@ function MaisonCardLink({ maison }: { maison: MaisonCardEntry }) {
   );
 }
 
-const parcoursSteps: { period: string; primary: string; secondary?: string }[] = [
-  { period: "2024", primary: "Création d'Azur Fleurot · Nice" },
-  {
-    period: "2024",
-    primary: "Direction de Lady Camélia · Vichy",
-    secondary: "Événementiel, mariages, deuils, hôtels",
-  },
-  {
-    period: "Déc. 2023",
-    primary: "Décoration de la maison mère de l'Institut Paul Bocuse · Lyon",
-  },
-  {
-    period: "2020–2022",
-    primary: "Maison Perles Oasis · Dubaï",
-    secondary: "Fleurs, événements, hôtels, parcs et jardins",
-  },
-  {
-    period: "2013–2020",
-    primary: "Fleurissement des grandes boutiques de luxe",
-    secondary: "Cartier, L'Oréal, Chantal Thomass, Ladurée…",
-  },
-  {
-    period: "1994 · 2001",
-    primary: "Racines au Puy-en-Velay",
-    secondary: "Stage fondateur chez La Digitale, puis ouverture de la boutique Arcade",
-  },
-];
+const parcoursSteps: { period: string; primary: string; secondary?: string }[] =
+  [
+    { period: "2024", primary: "Création d'Azur Fleurot · Nice" },
+    {
+      period: "2024",
+      primary: "Direction de Lady Camélia · Vichy",
+      secondary: "Événementiel, mariages, deuils, hôtels",
+    },
+    {
+      period: "Déc. 2023",
+      primary: "Décoration de la maison mère de l'Institut Paul Bocuse · Lyon",
+    },
+    {
+      period: "2020–2022",
+      primary: "Maison Perles Oasis · Dubaï",
+      secondary: "Fleurs, événements, hôtels, parcs et jardins",
+    },
+    {
+      period: "2013–2020",
+      primary: "Fleurissement des grandes boutiques de luxe",
+      secondary: "Cartier, L'Oréal, Chantal Thomass, Ladurée…",
+    },
+    {
+      period: "1994 · 2001",
+      primary: "Racines au Puy-en-Velay",
+      secondary:
+        "Stage fondateur chez La Digitale, puis ouverture de la boutique Arcade",
+    },
+  ];
 
 const trustInstitutionalRefs: string[] = [
   "Institut Paul Bocuse · Lyon",
@@ -201,8 +214,7 @@ const trustInstitutionalRefs: string[] = [
   "Cathédrale Notre-Dame-Immaculée · Monaco",
   "Le Negresco · Nice",
   "Conciergerie · Paris",
-  "Grand Palais de Dakar",
-  "Rallye Paris-Dakar · Le Puy-en-Velay",
+  "Rallye Paris-Dakar ",
   "Rotary International · Vichy",
   "Musée du Jardin Henri-Vinay · Le Puy-en-Velay",
   "Le Couvent · Nice",
@@ -252,23 +264,45 @@ export default function Home() {
   const contactRef = useRef<HTMLElement | null>(null);
   const contactDecorRef = useRef<HTMLDivElement | null>(null);
 
-  const distinctionsInView = useInView(distinctionsRef, { once: true, margin: "-100px" });
-  const distinctionsDecorInView = useInView(distinctionsDecorRef, { once: false, margin: "-100px" });
-  const citationInView = useInView(citationRef, { once: true, margin: "-80px" });
+  const distinctionsInView = useInView(distinctionsRef, {
+    once: true,
+    margin: "-100px",
+  });
+  const distinctionsDecorInView = useInView(distinctionsDecorRef, {
+    once: false,
+    margin: "-100px",
+  });
+  const citationInView = useInView(citationRef, {
+    once: true,
+    margin: "-80px",
+  });
   const trustInView = useInView(trustRef, { once: true });
   const creationsInView = useInView(creationsRef, { once: true, amount: 0.05 });
   const maisonsInView = useInView(maisonsRef, { once: true });
   const contactInView = useInView(contactRef, { once: true });
   const portraitInView = useInView(portraitRef, { once: true });
-  const portraitDecorInView = useInView(portraitDecorRef, { once: false, margin: "-100px" });
-  const parcoursInView = useInView(parcoursRef, { once: true, margin: "-60px" });
-  const contactDecorInView = useInView(contactDecorRef, { once: false, margin: "-100px" });
+  const portraitDecorInView = useInView(portraitDecorRef, {
+    once: false,
+    margin: "-100px",
+  });
+  const parcoursInView = useInView(parcoursRef, {
+    once: true,
+    margin: "-60px",
+  });
+  const contactDecorInView = useInView(contactDecorRef, {
+    once: false,
+    margin: "-100px",
+  });
 
   const { scrollYProgress: portraitScrollProgress } = useScroll({
     target: portraitRef,
     offset: ["start end", "end start"],
   });
-  const portraitQuoteY = useTransform(portraitScrollProgress, [0, 1], [30, -30]);
+  const portraitQuoteY = useTransform(
+    portraitScrollProgress,
+    [0, 1],
+    [30, -30],
+  );
 
   const citationWords = DEVINCI_MOTTO.split(/\s+/);
 
@@ -294,7 +328,8 @@ export default function Home() {
           <div
             className="absolute inset-0 hidden md:block"
             style={{
-              background: "linear-gradient(to right, transparent 70%, rgba(15,15,13,0.62) 100%)",
+              background:
+                "linear-gradient(to right, transparent 70%, rgba(15,15,13,0.62) 100%)",
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/70 md:hidden" />
@@ -308,7 +343,12 @@ export default function Home() {
               aria-hidden="true"
               fill="none"
             >
-              <path d="M58 406V26" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+              <path
+                d="M58 406V26"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                vectorEffect="non-scaling-stroke"
+              />
               <path
                 d="M58 106c18-2 34-12 40-30-18 2-34 12-40 30Z"
                 stroke="currentColor"
@@ -349,10 +389,22 @@ export default function Home() {
                 aria-hidden="true"
                 fill="none"
               >
-                <circle cx="60" cy="60" r="45" stroke="currentColor" strokeWidth="1.2" />
-                <path d="M60 14c10 8 16 18 18 30M14 60c8-10 18-16 30-18M106 60c-8-10-18-16-30-18M60 106c-10-8-16-18-18-30" stroke="currentColor" strokeWidth="1.2" />
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="45"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                />
+                <path
+                  d="M60 14c10 8 16 18 18 30M14 60c8-10 18-16 30-18M106 60c-8-10-18-16-30-18M60 106c-10-8-16-18-18-30"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                />
               </svg>
-              <span className="font-cormorant text-2xl italic text-cream">TB</span>
+              <span className="font-cormorant text-2xl italic text-cream">
+                TB
+              </span>
             </motion.div>
             <motion.p
               className="mt-7 font-jost text-xs uppercase tracking-[0.62em] text-muted"
@@ -395,12 +447,17 @@ export default function Home() {
               animate="show"
               variants={{
                 hidden: {},
-                show: { transition: { delayChildren: 1.7, staggerChildren: 0.1 } },
+                show: {
+                  transition: { delayChildren: 1.7, staggerChildren: 0.1 },
+                },
               }}
             >
               <motion.span
                 className="border border-green/55 px-5 py-2.5 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/90"
-                variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 Maître Fleuriste
@@ -408,7 +465,10 @@ export default function Home() {
               <span className="hidden text-green/55 sm:inline">·</span>
               <motion.span
                 className="border border-green/55 px-5 py-2.5 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/90"
-                variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 Maître Artisan d&apos;Art
@@ -449,20 +509,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="artisan" ref={distinctionsRef} className="relative isolate z-10 overflow-x-hidden bg-cream py-24 md:py-32">
+      <section
+        id="artisan"
+        ref={distinctionsRef}
+        className="relative isolate z-10 overflow-x-hidden bg-cream py-24 md:py-32"
+      >
         <SectionContainer>
           <RevealWrapper className="text-center">
-            <div ref={distinctionsDecorRef} className="mx-auto flex max-w-xl items-center gap-5">
+            <div
+              ref={distinctionsDecorRef}
+              className="mx-auto flex max-w-xl items-center gap-5"
+            >
               <motion.span
                 className="h-px flex-1 bg-green/35"
                 initial={{ scaleX: 0, originX: 0 }}
-                animate={distinctionsDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                animate={
+                  distinctionsDecorInView ? { scaleX: 1 } : { scaleX: 0 }
+                }
                 transition={{ duration: 0.4, ease: easeOutExpo }}
               />
               <motion.p
                 className="font-jost text-xs uppercase tracking-[0.55em] text-cream"
                 initial={{ opacity: 0, y: 10 }}
-                animate={distinctionsDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                animate={
+                  distinctionsDecorInView
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 10 }
+                }
                 transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
               >
                 Distinctions
@@ -470,7 +543,9 @@ export default function Home() {
               <motion.span
                 className="h-px flex-1 bg-green/35"
                 initial={{ scaleX: 0, originX: 0 }}
-                animate={distinctionsDecorInView ? { scaleX: 1 } : { scaleX: 0 }}
+                animate={
+                  distinctionsDecorInView ? { scaleX: 1 } : { scaleX: 0 }
+                }
                 transition={{ duration: 0.4, ease: easeOutExpo, delay: 0.1 }}
               />
             </div>
@@ -480,7 +555,8 @@ export default function Home() {
               animate={distinctionsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1, ease: easeOutExpo, delay: 0.3 }}
             >
-              Deux titres. <span className="text-blush">Un seul homme en France.</span>
+              Deux titres.{" "}
+              <span className="text-blush">Un seul homme en France.</span>
             </motion.h2>
             <p className="mt-6 font-jost text-xs uppercase tracking-[0.25em] text-muted">
               Une distinction que nul autre fleuriste ne possède
@@ -525,9 +601,10 @@ export default function Home() {
                 <span className="absolute left-1/2 top-1/2 block h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-green bg-cream" />
               </motion.div>
               <p className="max-w-xl flex-1 text-base leading-relaxed text-background/70">
-                Le titre de Maître Fleuriste est la plus haute distinction artisanale de la
-                profession en France. Décerné après des décennies d&apos;excellence et une maîtrise
-                technique hors pair, il consacre l&apos;artisan au sommet de son art.
+                Le titre de Maître Fleuriste est la plus haute distinction
+                artisanale de la profession en France. Décerné après des
+                décennies d&apos;excellence et une maîtrise technique hors pair,
+                il consacre l&apos;artisan au sommet de son art.
               </p>
             </motion.article>
           </RevealWrapper>
@@ -560,7 +637,8 @@ export default function Home() {
                 Parcs et Jardins du Patrimoine
               </p>
               <p className="mt-3 max-w-xl font-jost text-[11px] leading-relaxed tracking-wide text-background/65">
-                Chambre de Métiers et de l&apos;Artisanat — Région Sud · Provence-Alpes-Côte d&apos;Azur
+                Chambre de Métiers et de l&apos;Artisanat — Région Sud ·
+                Provence-Alpes-Côte d&apos;Azur
               </p>
               <p className="mt-3 max-w-xl font-jost text-[11px] leading-relaxed text-background/55">
                 Appellation Artisan d&apos;Art — 2024, même organisme.
@@ -574,9 +652,10 @@ export default function Home() {
                 <span className="absolute left-1/2 top-1/2 block h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-green bg-cream" />
               </motion.div>
               <p className="max-w-xl flex-1 text-base leading-relaxed text-background/70">
-                Titre d&apos;État décerné aux artisans dont le savoir-faire constitue un patrimoine
-                culturel vivant. Dans le domaine des Parcs et Jardins du Patrimoine, Thomas
-                Bouilhol est gardien d&apos;un art dont les racines traversent les siècles.
+                Titre d&apos;État décerné aux artisans dont le savoir-faire
+                constitue un patrimoine culturel vivant. Dans le domaine des
+                Parcs et Jardins du Patrimoine, Thomas Bouilhol est gardien
+                d&apos;un art dont les racines traversent les siècles.
               </p>
             </motion.article>
           </RevealWrapper>
@@ -584,12 +663,16 @@ export default function Home() {
 
         <div className="border-t border-green/20 bg-secondary/10 py-8 text-center">
           <p className="font-cormorant text-[clamp(1rem,2.5vw,1.5rem)] italic text-background/60">
-            Seul fleuriste en France à détenir simultanément ces deux distinctions.
+            Seul fleuriste en France à détenir simultanément ces deux
+            distinctions.
           </p>
         </div>
       </section>
 
-      <section ref={citationRef} className="relative isolate bg-[#F5F0E8] py-20 md:py-28">
+      <section
+        ref={citationRef}
+        className="relative isolate bg-[#F5F0E8] py-20 md:py-28"
+      >
         <SectionContainer>
           <RevealWrapper className="mx-auto max-w-3xl text-center">
             <motion.p
@@ -604,7 +687,9 @@ export default function Home() {
               className="-mt-8 font-cormorant text-[clamp(1.6rem,3.2vw,2.5rem)] italic text-background"
               variants={{
                 hidden: {},
-                show: { transition: { delayChildren: 0.2, staggerChildren: 0.03 } },
+                show: {
+                  transition: { delayChildren: 0.2, staggerChildren: 0.03 },
+                },
               }}
               initial="hidden"
               animate={citationInView ? "show" : "hidden"}
@@ -613,7 +698,10 @@ export default function Home() {
                 <motion.span
                   key={`${word}-${index}`}
                   className="mr-2 inline-block"
-                  variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    show: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.6, ease: easeOutExpo }}
                 >
                   {word}
@@ -638,10 +726,17 @@ export default function Home() {
         </SectionContainer>
       </section>
 
-      <section id="portrait" ref={portraitRef} className="relative isolate overflow-x-hidden bg-[#EDE8DF] py-24 md:py-32">
+      <section
+        id="portrait"
+        ref={portraitRef}
+        className="relative isolate overflow-x-hidden bg-[#EDE8DF] py-24 md:py-32"
+      >
         <SectionContainer>
           <RevealWrapper>
-            <div ref={portraitDecorRef} className="mx-auto flex max-w-xl items-center gap-5">
+            <div
+              ref={portraitDecorRef}
+              className="mx-auto flex max-w-xl items-center gap-5"
+            >
               <motion.span
                 className="h-px flex-1 bg-green/35"
                 initial={{ scaleX: 0, originX: 0 }}
@@ -651,7 +746,11 @@ export default function Home() {
               <motion.p
                 className="font-jost text-[9px] uppercase tracking-[0.55em] text-blush/80"
                 initial={{ opacity: 0, y: 10 }}
-                animate={portraitDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                animate={
+                  portraitDecorInView
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 10 }
+                }
                 transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
               >
                 Portrait
@@ -671,43 +770,53 @@ export default function Home() {
                 animate={portraitInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 1.2, ease: easeOutExpo }}
               >
-                «L&apos;Art dans
-                
-                L&apos;Excellence. »
+                «L&apos;Art dans L&apos;Excellence. »
               </motion.blockquote>
               <motion.div
                 className="space-y-6 text-[15px] text-background/70"
                 variants={{
                   hidden: {},
-                  show: { transition: { delayChildren: 0.2, staggerChildren: 0.15 } },
+                  show: {
+                    transition: { delayChildren: 0.2, staggerChildren: 0.15 },
+                  },
                 }}
                 initial="hidden"
                 animate={portraitInView ? "show" : "hidden"}
               >
                 <motion.p
                   className="leading-relaxed"
-                  variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.9, ease: easeOutExpo }}
                 >
-                  Depuis ses 14 ans, Thomas Bouilhol vit en compagnie des fleurs. Autodidacte, guidé
-                  par le ressenti et l&apos;exigence du geste juste, il a bâti une œuvre florale
-                  reconnue des plus grands établissements de la Côte d&apos;Azur et au-delà.
+                  Depuis ses 14 ans, Thomas Bouilhol vit en compagnie des
+                  fleurs. Autodidacte, guidé par le ressenti et l&apos;exigence
+                  du geste juste, il a bâti une œuvre florale reconnue des plus
+                  grands établissements de la Côte d&apos;Azur et au-delà.
                 </motion.p>
                 <motion.p
                   className="leading-relaxed"
-                  variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.9, ease: easeOutExpo }}
                 >
                   <em className="font-cormorant text-[1.15rem] italic text-background/85">
                     Idéateur végétal
                   </em>{" "}
-                  — il ne se contente pas d&apos;arranger des fleurs. Il conçoit des univers
-                  végétaux, des architectures éphémères qui capturent l&apos;instant et transcendent
-                  le décor.
+                  — il ne se contente pas d&apos;arranger des fleurs. Il conçoit
+                  des univers végétaux, des architectures éphémères qui
+                  capturent l&apos;instant et transcendent le décor.
                 </motion.p>
                 <motion.div
                   className="border-t border-green/20 pt-6"
-                  variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.9, ease: easeOutExpo }}
                 >
                   <p className="font-jost text-[9px] uppercase tracking-[0.3em] text-blush/80">
@@ -717,7 +826,12 @@ export default function Home() {
                     className="mt-4 text-sm leading-loose text-background/60"
                     variants={{
                       hidden: {},
-                      show: { transition: { delayChildren: 0.1, staggerChildren: 0.08 } },
+                      show: {
+                        transition: {
+                          delayChildren: 0.1,
+                          staggerChildren: 0.08,
+                        },
+                      },
                     }}
                     initial="hidden"
                     animate={portraitInView ? "show" : "hidden"}
@@ -736,7 +850,10 @@ export default function Home() {
                       <motion.span
                         key={`${item}-${index}`}
                         className={item === "·" ? "mx-1 text-green" : ""}
-                        variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
+                        variants={{
+                          hidden: { opacity: 0 },
+                          show: { opacity: 1 },
+                        }}
                         transition={{ duration: 0.8, ease: easeOutExpo }}
                       >
                         {item}
@@ -750,7 +867,11 @@ export default function Home() {
         </SectionContainer>
       </section>
 
-      <section id="creations" ref={creationsRef} className="relative isolate bg-[#F5F0E8] px-4 py-20 md:px-16 md:py-32">
+      <section
+        id="creations"
+        ref={creationsRef}
+        className="relative isolate bg-[#F5F0E8] px-4 py-20 md:px-16 md:py-32"
+      >
         <SectionContainer>
           <RevealWrapper>
             <motion.h2
@@ -772,8 +893,14 @@ export default function Home() {
                   key={item.src}
                   className="group mb-6 break-inside-avoid min-w-0"
                   initial={{ opacity: 0, y: 40, scale: 0.96 }}
-                  animate={creationsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                  transition={{ duration: 0.9, ease: easeOutExpo, delay: index * 0.08 }}
+                  animate={
+                    creationsInView ? { opacity: 1, y: 0, scale: 1 } : {}
+                  }
+                  transition={{
+                    duration: 0.9,
+                    ease: easeOutExpo,
+                    delay: index * 0.08,
+                  }}
                 >
                   <div className="relative w-full overflow-hidden rounded-[4px] border border-transparent transition-all duration-[450ms] ease-out group-hover:border-green">
                     <Image
@@ -890,7 +1017,8 @@ export default function Home() {
               animate={parcoursInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.35 }}
             >
-              D&apos;autres expériences complètent ce parcours et peuvent être détaillées sur demande.
+              D&apos;autres expériences complètent ce parcours et peuvent être
+              détaillées sur demande.
             </motion.p>
           </RevealWrapper>
 
@@ -900,7 +1028,10 @@ export default function Home() {
             animate={parcoursInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: easeOutExpo, delay: 0.25 }}
           >
-            <div className="mx-auto mb-10 h-px w-12 bg-green/45" aria-hidden="true" />
+            <div
+              className="mx-auto mb-10 h-px w-12 bg-green/45"
+              aria-hidden="true"
+            />
             <blockquote className="font-cormorant text-[clamp(1.45rem,4.2vw,2.85rem)] font-light italic leading-snug text-neutral-950">
               «&nbsp;{DEVINCI_MOTTO}&nbsp;»
             </blockquote>
@@ -916,7 +1047,10 @@ export default function Home() {
         </SectionContainer>
       </section>
 
-      <section ref={trustRef} className="relative isolate overflow-hidden bg-background py-[4.5rem] md:py-[5.25rem]">
+      <section
+        ref={trustRef}
+        className="relative isolate overflow-hidden bg-background py-[4.5rem] md:py-[5.25rem]"
+      >
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,rgba(201,169,138,0.06)_0%,transparent_60%)]"
           aria-hidden="true"
@@ -962,7 +1096,9 @@ export default function Home() {
               animate={trustInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.75, ease: easeOutExpo, delay: 0.18 }}
             >
-              <p className="font-jost text-[10px] uppercase tracking-[0.28em] text-blush/[0.7]">Luxe partenaire</p>
+              <p className="font-jost text-[10px] uppercase tracking-[0.28em] text-blush/[0.7]">
+                Luxe partenaire
+              </p>
               <ul className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-x-16 gap-y-7 text-center text-[17px] font-light leading-[1.85] text-cream/[0.8] sm:grid-cols-2 md:text-[18px]">
                 {trustLuxuryBrands.map((brand) => (
                   <li key={brand}>{brand}</li>
@@ -991,11 +1127,36 @@ export default function Home() {
       </section>
 
       <div className="relative isolate flex justify-center bg-cream py-8 text-green/[0.15]">
-        <svg viewBox="0 0 140 220" className="h-20 w-auto md:h-24" aria-hidden="true" fill="none">
-          <path d="M70 210V18" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
-          <path d="M70 74c18-2 34-12 42-30-18 2-34 12-42 30Z" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
-          <path d="M70 126c-16-2-30-10-38-24 16 2 30 10 38 24Z" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
-          <path d="M70 176c20-2 36-12 46-30-20 2-36 12-46 30Z" stroke="currentColor" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+        <svg
+          viewBox="0 0 140 220"
+          className="h-20 w-auto md:h-24"
+          aria-hidden="true"
+          fill="none"
+        >
+          <path
+            d="M70 210V18"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M70 74c18-2 34-12 42-30-18 2-34 12-42 30Z"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M70 126c-16-2-30-10-38-24 16 2 30 10 38 24Z"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M70 176c20-2 36-12 46-30-20 2-36 12-46 30Z"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            vectorEffect="non-scaling-stroke"
+          />
         </svg>
       </div>
 
@@ -1041,7 +1202,11 @@ export default function Home() {
                   className="flex h-full min-w-0 flex-col"
                   initial={{ opacity: 0, y: 22 }}
                   animate={maisonsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.85, ease: easeOutExpo, delay: 0.14 + index * 0.08 }}
+                  transition={{
+                    duration: 0.85,
+                    ease: easeOutExpo,
+                    delay: 0.14 + index * 0.08,
+                  }}
                 >
                   <MaisonCardLink maison={maison} />
                 </motion.div>
@@ -1051,10 +1216,17 @@ export default function Home() {
         </SectionContainer>
       </section>
 
-      <section id="contact" ref={contactRef} className="relative isolate bg-background py-24 md:py-32">
+      <section
+        id="contact"
+        ref={contactRef}
+        className="relative isolate bg-background py-24 md:py-32"
+      >
         <SectionContainer>
           <RevealWrapper className="mx-auto max-w-lg text-center">
-            <div ref={contactDecorRef} className="mx-auto flex items-center gap-5">
+            <div
+              ref={contactDecorRef}
+              className="mx-auto flex items-center gap-5"
+            >
               <motion.span
                 className="h-px flex-1 bg-green/40"
                 initial={{ scaleX: 0, originX: 0 }}
@@ -1064,7 +1236,11 @@ export default function Home() {
               <motion.p
                 className="font-jost text-[9px] uppercase tracking-[0.55em] text-cream"
                 initial={{ opacity: 0, y: 10 }}
-                animate={contactDecorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                animate={
+                  contactDecorInView
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 10 }
+                }
                 transition={{ duration: 0.3, ease: easeOutExpo, delay: 0.05 }}
               >
                 Contact
@@ -1084,7 +1260,9 @@ export default function Home() {
             >
               Entrer en contact
             </motion.h2>
-            <p className="mt-4 font-cormorant text-lg italic text-muted">Pour les projets d&apos;exception.</p>
+            <p className="mt-4 font-cormorant text-lg italic text-muted">
+              Pour les projets d&apos;exception.
+            </p>
             <motion.div
               className="relative mx-auto my-10 h-px w-12 bg-green/50"
               initial={{ scaleX: 0, originX: 0.5 }}
@@ -1097,13 +1275,18 @@ export default function Home() {
               className="space-y-8 text-cream/80"
               variants={{
                 hidden: {},
-                show: { transition: { delayChildren: 0.2, staggerChildren: 0.15 } },
+                show: {
+                  transition: { delayChildren: 0.2, staggerChildren: 0.15 },
+                },
               }}
               initial="hidden"
               animate={contactInView ? "show" : "hidden"}
             >
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
@@ -1116,7 +1299,10 @@ export default function Home() {
                 </p>
               </motion.div>
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
@@ -1130,7 +1316,10 @@ export default function Home() {
                 </a>
               </motion.div>
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
@@ -1144,7 +1333,10 @@ export default function Home() {
                 </a>
               </motion.div>
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.8, ease: easeOutExpo }}
               >
                 <p className="mb-1.5 font-jost text-[9px] uppercase tracking-[0.35em] text-cream">
@@ -1182,8 +1374,18 @@ export default function Home() {
             aria-hidden="true"
             fill="none"
           >
-            <circle cx="60" cy="60" r="45" stroke="currentColor" strokeWidth="1.2" />
-            <path d="M60 14c10 8 16 18 18 30M14 60c8-10 18-16 30-18M106 60c-8-10-18-16-30-18M60 106c-10-8-16-18-18-30" stroke="currentColor" strokeWidth="1.2" />
+            <circle
+              cx="60"
+              cy="60"
+              r="45"
+              stroke="currentColor"
+              strokeWidth="1.2"
+            />
+            <path
+              d="M60 14c10 8 16 18 18 30M14 60c8-10 18-16 30-18M106 60c-8-10-18-16-30-18M60 106c-10-8-16-18-18-30"
+              stroke="currentColor"
+              strokeWidth="1.2"
+            />
           </svg>
           <span className="font-cormorant text-2xl italic text-cream">TB</span>
         </div>
@@ -1191,9 +1393,13 @@ export default function Home() {
         <p className="mt-2 font-jost text-[9px] uppercase tracking-[0.3em] text-cream/35">
           Maître Fleuriste · Maître Artisan d&apos;Art
         </p>
-        <p className="mt-2 font-cormorant text-sm italic text-blush">Idéateur végétal · Nice</p>
+        <p className="mt-2 font-cormorant text-sm italic text-blush">
+          Idéateur végétal · Nice
+        </p>
         <DecorativeLine className="mt-7 w-8" />
-        <p className="mt-6 font-jost text-[9px] text-cream/30">© 2026 Thomas Bouilhol</p>
+        <p className="mt-6 font-jost text-[9px] text-cream/30">
+          © 2026 Thomas Bouilhol
+        </p>
       </footer>
       <script
         type="application/ld+json"
@@ -1224,7 +1430,8 @@ export default function Home() {
                 },
                 areaServed: ["Nice", "Côte d'Azur", "Monaco", "Vichy"],
                 priceRange: "€€€€",
-                image: "https://thomas-bouilhol.com/images/thomas-bouilhol-hero.png",
+                image:
+                  "https://thomas-bouilhol.com/images/thomas-bouilhol-hero.png",
               },
               {
                 "@type": "Person",
