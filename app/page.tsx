@@ -213,7 +213,7 @@ const trustInstitutionalRefs: string[] = [
   "Cathédrale Notre-Dame du Puy-en-Velay",
   "Cathédrale Notre-Dame-Immaculée · Monaco",
   "Le Negresco · Nice",
-  "Conciergerie · Paris",
+  "Conciergerie de l'hotel du couvent · Nice",
   "Rallye Paris-Dakar ",
   "Rotary International · Vichy",
   "Musée du Jardin Henri-Vinay · Le Puy-en-Velay",
