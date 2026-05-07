@@ -791,10 +791,10 @@ export default function Home() {
                   }}
                   transition={{ duration: 0.9, ease: easeOutExpo }}
                 >
-                  Depuis ses 14 ans, Thomas Bouilhol vit en compagnie des
-                  fleurs. Autodidacte, guidé par le ressenti et l&apos;exigence
-                  du geste juste, il a bâti une œuvre florale reconnue des plus
-                  grands établissements de la Côte d&apos;Azur et au-delà.
+                  Depuis 34 ans, Thomas Bouilhol vit en compagnie des fleurs.
+                  Autodidacte, guidé par le ressenti et l&apos;exigence du geste
+                  juste, il a bâti une œuvre florale reconnue des plus grands
+                  établissements de la Côte d&apos;Azur et au-delà.
                 </motion.p>
                 <motion.p
                   className="leading-relaxed"
