@@ -107,13 +107,13 @@ type MaisonCardEntry = {
 
 const maisonCards: MaisonCardEntry[] = [
   {
-    badge: "PARCS ET JARDINS DU PATRIMOINE",
-    name: "SCI TMGL",
+    badge: "MAISON FLEURISTE",
+    name: "SARL Azur Fleurot",
     description:
-      "Maître Artisan d'Art — Parcs et Jardins du Patrimoine. Conception et entretien de jardins d'exception.",
+      "La boutique florale phare. Créations sur-mesure pour mariages, réceptions et décoration d'intérieur.",
     city: "Nice",
     address: "1 Rue Barillerie, 06300 Nice",
-    background: "#0f1f0f",
+    background: "#1a1a1a",
   },
   {
     badge: "RESTAURATION",
@@ -125,14 +125,15 @@ const maisonCards: MaisonCardEntry[] = [
     background: "#2d0a0a",
   },
   {
-    badge: "MAISON FLEURISTE",
-    name: "SARL Azur Fleurot",
+    badge: "PARCS ET JARDINS DU PATRIMOINE",
+    name: "SCI TMGL",
     description:
-      "La boutique florale phare. Créations sur-mesure pour mariages, réceptions et décoration d'intérieur.",
+      "Maître Artisan d'Art — Parcs et Jardins du Patrimoine. Conception et entretien de jardins d'exception.",
     city: "Nice",
     address: "1 Rue Barillerie, 06300 Nice",
-    background: "#1a1a1a",
+    background: "#0f1f0f",
   },
+  
 ];
 
 function MaisonCardLink({ maison }: { maison: MaisonCardEntry }) {
@@ -218,6 +219,7 @@ const trustInstitutionalRefs: string[] = [
   "Rotary International · Vichy",
   "Musée du Jardin Henri-Vinay · Le Puy-en-Velay",
   "Le Couvent · Nice",
+  "Fleurissement de la vierge du Malonat · Nice",
 ];
 
 const trustLuxuryBrands: string[] = [
@@ -1109,19 +1111,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div
-              className="relative mx-auto mt-14 rounded-sm border border-blush/[0.18] bg-cream/[0.025] px-8 py-6 text-center md:mt-16"
-              initial={{ opacity: 0 }}
-              animate={trustInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.24 }}
-            >
-              <p className="font-cormorant text-[1.1rem] italic leading-snug text-blush/[0.92] md:text-[1.2rem]">
-                Maison Fiol · Nice
-              </p>
-              <p className="mt-2 font-jost text-[10px] uppercase tracking-[0.26em] text-cream/[0.38]">
-                Prestataire actuel
-              </p>
-            </motion.div>
+            
           </RevealWrapper>
         </SectionContainer>
       </section>
